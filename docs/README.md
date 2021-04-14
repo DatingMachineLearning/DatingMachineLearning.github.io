@@ -1,4 +1,4 @@
-# Dating-with-Machine-Learning
+# Dating Machine Learning
 
 ![visitor badge](https://visitor-badge.glitch.me/badge?page_id=xrandx.Dating-with-Machine-Learning)
 
