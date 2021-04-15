@@ -1,6 +1,16 @@
-# Dating Machine Learning
+# Dating Machine Learning 
 
 ![visitor badge](https://visitor-badge.glitch.me/badge?page_id=xrandx.Dating-with-Machine-Learning)
+
+
+> 正在从之前的仓库中迁移！
+>
+> https://github.com/xrandx/Dating-with-python-this-winter
+>
+> https://github.com/xrandx/Data-analysis-for-python
+
+---
+
 
 这个春天一起机器学习 —— Python 数据分析课。
 
