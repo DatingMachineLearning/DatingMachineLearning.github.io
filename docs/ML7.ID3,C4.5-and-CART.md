@@ -161,7 +161,7 @@ $$
 &=1-\sum_{k=1}^{|\mathcal{Y}|} p_{k}^{2}
 \end{aligned}
 $$
-其反映从数据集 D 中随机抽取两个样本，其类别标记不一致的概率。因此，G(D) 越小，则数据集 D 的纯度越高。
+其反映从数据集 D 中**随机抽取两个样本，其类别标记不一致的概率**。因此，G(D) 越小，则数据集 D 的纯度越高。
 
 于是，我们在候选属性集合 A 中，选择那个使得划分后基尼指数最小的属性作为最优划分属性：
 $$
@@ -188,20 +188,20 @@ $$
 2. 填充缺失值，例如给属性A填充一个均值或者用其他方法将缺失值补全。 
 3. 如下：
 
-假设训练集D 和属性 $a$ ，令 $\tilde{D}$ 表示 D 中在属性 $a$ 上没有缺失值的样本子集，$\tilde D^v$ 表示 D 中在属性 $a$ 上取值为$a^v$的样本子集，$D_k$ 表示 D 中属于第 k 类 $(k = 1, 2, .. . , |y|)$的样本子集，$w_x$ 为每个样本的权重，我们可以计算出：
+假设训练集 $D$ 和属性 $a$ ，令 $\tilde{D}$ 表示 $D$ 中在属性 $a$ 上没有缺失值的样本子集，$\tilde D^v$ 表示 $D$ 中在属性 $a$ 上取值为$a^v$的样本子集，$D_k$ 表示 $D$ 中属于第 k 类 $(k = 1, 2, .. . , |y|)$的样本子集，$w_x$ 为每个样本的权重，我们可以计算出：
 
-无缺失值样本子集所占总样本的比例：
+无缺失值样本子集在总样本的比例：
 $$
 \rho =\frac{\sum_{\boldsymbol{x} \in \tilde{D}} w_{\boldsymbol{x}}}{\sum_{\boldsymbol{x} \in D} w_{\boldsymbol{x}}}
 $$
-无缺失值样本中第 k 类所占的比例：
+第 k 类在无缺失值样本的比例：
 $$
 \tilde{p}_{k} =\frac{\sum_{\boldsymbol{x} \in \tilde{D}_{k}} w_{\boldsymbol{x}}}{\sum_{\boldsymbol{x} \in \tilde{D}} w_{\boldsymbol{x}}} \quad(1 \leqslant k \leqslant|\mathcal{Y}|)
 $$
-无缺失值样本中在属性 $a$ 上取值 $a^v$ 的样本所占的比例：
+无缺失值样本中，属性值 $a^v$ 在属性 $a$ 上的样本比例：
 $$
 \tilde{r}_{v} =
-\frac{ \sum_{\boldsymbol{x} \in \tilde{D}}   w_{\boldsymbol{x}} }{\sum_{\boldsymbol{x} \in \tilde{D}} w_{\boldsymbol{x}}}  \quad(1 \leqslant v \leqslant V)
+\frac{ \sum_{\boldsymbol{x} \in \tilde{D}^v}   w_{\boldsymbol{x}} }{\sum_{\boldsymbol{x} \in \tilde{D}} w_{\boldsymbol{x}}}  \quad(1 \leqslant v \leqslant V)
 $$
 且 $\sum_{k=1}^{|\mathcal{Y}|} \tilde{p}_{k}=1, \sum_{v=1}^{V} \tilde{r}_{v}=1$ 。
 
@@ -217,8 +217,6 @@ $$
 {H}(\tilde{D})=-\sum_{k=1}^{|\mathcal{Y}|} \tilde{p}_{k} \log _{2} \tilde{p}_{k}
 $$
 对于第二个问题：若样本 $x$ 在划分属性 $a$ 上的取值未知，则将 $x$ 同时划入所有子结点，样本权值在与属性值 $a^v$ 对应的子结点中调整为 $\tilde{r}^vw_x$，直观地看，这就是让同一个样本以不同的概率划入到不同的子结点中去。
-
-
 
 ## 剪枝增强泛化
 
@@ -289,11 +287,85 @@ if __name__ == '__main__':
 1. 无论是ID3, C4.5还是CART,在做特征选择的时候都是选择最优的一个特征来做分类决策，但是大多数，分类决策不应该是由某一个特征决定的，而是应该由一组特征决定的。这样决策得到的决策树更加准确。这个决策树叫做多变量决策树(multi-variate decision tree)。在选择最优特征的时候，多变量决策树不是选择某一个最优特征，而是选择最优的一个特征线性组合来做决策。这个算法的代表是OC1，这里不多介绍。
 2. 如果样本发生一点点的改动，就会导致树结构的剧烈改变。这个可以通过集成学习里面的随机森林之类的方法解决。
 
+## 实验 1
+
+```python
+from sklearn.tree import DecisionTreeClassifier
+from sklearn import tree
+# 导入画图库
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+import graphviz
+
+
+def main():
+    #   Step1: 构造数据集
+    x_feature = np.array([[-1, -2], [-2, -1], [-3, -2], [1, 3], [2, 1], [3, 2]])
+    y_label = np.array([0, 1, 0, 1, 0, 1])
+
+    #   Step2: 模型训练
+    # 调用决策树回归模型
+    tree_clf = DecisionTreeClassifier()
+    # 调用决策树模型拟合构造的数据集
+    tree_clf = tree_clf.fit(x_feature, y_label)
+
+    #   Step3: 数据和模型可视化
+    plt.figure()
+    plt.scatter(x_feature[:, 0], x_feature[:, 1], c=y_label, s=50, cmap='viridis')
+    plt.title('Dataset')
+    plt.show()
+
+    # dot_data = tree.export_graphviz(tree_clf, out_file=None)
+    # graph = graphviz.Source(dot_data)
+    # graph.render("pengunis")
+
+    x_feature_new1 = np.array([[0, -1]])
+    x_feature_new2 = np.array([[2, 1]])
+
+    #   Step4: 模型预测
+    # 在训练集和测试集上分布利用训练好的模型进行预测
+    y_label_new1_predict = tree_clf.predict(x_feature_new1)
+    y_label_new2_predict = tree_clf.predict(x_feature_new2)
+
+    print('The New point 1 predict class:\n', y_label_new1_predict)
+    print('The New point 2 predict class:\n', y_label_new2_predict)
+
+
+if __name__ == '__main__':
+    main()
+```
+
+决策树本质是划分多个间隔：
+
+![Inkedmyplot_LI](https://gitee.com/xrandx/blog-figurebed/raw/master/img/20210419191330.jpg)
+
+
+
+## 实验2
+
+根据企鹅数据判断🐧亚属。我们选择企鹅数据（palmerpenguins）进行方法的尝试训练，该数据集一共包含8个变量，其中7个特征变量，1个目标分类变量。共有150个样本，目标变量为 企鹅的类别 其都属于企鹅类的三个亚属，分别是(Adélie, Chinstrap and Gentoo)。包含的三种种企鹅的七个特征，分别是所在岛屿，嘴巴长度，嘴巴深度，脚蹼长度，身体体积，性别以及年龄。
+
+| 变量              | 描述                                                       |
+| ----------------- | ---------------------------------------------------------- |
+| species           | a factor denoting penguin species                          |
+| island            | a factor denoting island in Palmer Archipelago, Antarctica |
+| bill_length_mm    | a number denoting bill length                              |
+| bill_depth_mm     | a number denoting bill depth                               |
+| flipper_length_mm | an integer denoting flipper length                         |
+| body_mass_g       | an integer denoting body mass                              |
+| sex               | a factor denoting penguin sex                              |
+| year              | an integer denoting the study year                         |
+
+参考 https://tianchi.aliyun.com/course/278/3422
+
 ## 本文资料参考
 
 [决策树（Decision Tree）-ID3、C4.5、CART比较](https://www.cnblogs.com/huangyc/p/9768858.html)
 
 《机器学习》周志华
+
+https://tianchi.aliyun.com/course/278/3422
 
 ### 决策树对缺失值是如何处理的?
 
