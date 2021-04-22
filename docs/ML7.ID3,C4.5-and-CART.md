@@ -359,6 +359,486 @@ if __name__ == '__main__':
 
 参考 https://tianchi.aliyun.com/course/278/3422
 
+### 初始化
+
+```python
+from sklearn.tree import DecisionTreeClassifier
+from sklearn import tree
+# 导入画图库
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+import graphviz
+import pandas as pd
+```
+
+### Step1：数据读取/载入
+我们利用Pandas自带的read_csv函数读取并转化为DataFrame格式
+
+
+```python
+data = pd.read_csv('src/penguins_raw.csv')
+data = data[['Species', 'Culmen Length (mm)', 'Culmen Depth (mm)',
+             'Flipper Length (mm)', 'Body Mass (g)']]
+```
+
+### Step2：查看数据的整体信息
+
+
+```python
+pd.set_option('display.max_columns', 1000)
+data.info()
+print(data.describe())
+```
+
+    <class 'pandas.core.frame.DataFrame'>
+    RangeIndex: 344 entries, 0 to 343
+    Data columns (total 5 columns):
+     #   Column               Non-Null Count  Dtype  
+    ---  ------               --------------  -----  
+     0   Species              344 non-null    object 
+     1   Culmen Length (mm)   342 non-null    float64
+     2   Culmen Depth (mm)    342 non-null    float64
+     3   Flipper Length (mm)  342 non-null    float64
+     4   Body Mass (g)        342 non-null    float64
+    dtypes: float64(4), object(1)
+    memory usage: 13.6+ KB
+           Culmen Length (mm)  Culmen Depth (mm)  Flipper Length (mm)  \
+    count          342.000000         342.000000           342.000000   
+    mean            43.921930          17.151170           200.915205   
+    std              5.459584           1.974793            14.061714   
+    min             32.100000          13.100000           172.000000   
+    25%             39.225000          15.600000           190.000000   
+    50%             44.450000          17.300000           197.000000   
+    75%             48.500000          18.700000           213.000000   
+    max             59.600000          21.500000           231.000000   
+    
+           Body Mass (g)  
+    count     342.000000  
+    mean     4201.754386  
+    std       801.954536  
+    min      2700.000000  
+    25%      3550.000000  
+    50%      4050.000000  
+    75%      4750.000000  
+    max      6300.000000  
+
+
+
+```python
+print(data.head())
+data = data.fillna(data.mean())
+#   data.fillna(data.median())
+data['Species'].unique()
+# 利用value_counts函数查看每个类别数量
+pd.Series(data['Species']).value_counts()
+```
+
+                                   Species  Culmen Length (mm)  Culmen Depth (mm)  \
+    0  Adelie Penguin (Pygoscelis adeliae)                39.1               18.7   
+    1  Adelie Penguin (Pygoscelis adeliae)                39.5               17.4   
+    2  Adelie Penguin (Pygoscelis adeliae)                40.3               18.0   
+    3  Adelie Penguin (Pygoscelis adeliae)                 NaN                NaN   
+    4  Adelie Penguin (Pygoscelis adeliae)                36.7               19.3   
+    
+       Flipper Length (mm)  Body Mass (g)  
+    0                181.0         3750.0  
+    1                186.0         3800.0  
+    2                195.0         3250.0  
+    3                  NaN            NaN  
+    4                193.0         3450.0  
+
+
+
+
+
+    Adelie Penguin (Pygoscelis adeliae)          152
+    Gentoo penguin (Pygoscelis papua)            124
+    Chinstrap penguin (Pygoscelis antarctica)     68
+    Name: Species, dtype: int64
+
+
+
+Step4:可视化描述
+
+
+```python
+sns.pairplot(data=data, diag_kind='hist', hue='Species')
+plt.show()
+```
+
+
+
+![png](https://gitee.com/xrandx/blog-figurebed/raw/master/img/20210420015719.png)
+
+
+
+从上图可以发现，在2D情况下不同的特征组合对于不同类别的企鹅的散点分布，以及大概的区分能力。Culmen Lenth与其他特征的组合散点的重合较少，所以对于数据集的划分能力最好。
+
+
+```python
+'''
+为了方便我们将标签转化为数字
+   'Adelie Penguin (Pygoscelis adeliae)'        ------0
+   'Gentoo penguin (Pygoscelis papua)'          ------1
+   'Chinstrap penguin (Pygoscelis antarctica)   ------2 
+'''
+def trans(x):
+    if x == data['Species'].unique()[0]:
+        return 0
+    if x == data['Species'].unique()[1]:
+        return 1
+    if x == data['Species'].unique()[2]:
+        return 2
+    
+data['Species'] = data['Species'].apply(trans)
+```
+
+
+```python
+for col in data.columns:
+    if col != 'Species':
+        sns.boxplot(x='Species', y=col, saturation=0.5, palette='pastel', data=data)
+        plt.title(col)
+        plt.show()
+```
+
+
+
+![png](https://gitee.com/xrandx/blog-figurebed/raw/master/img/20210420015729.png)
+
+
+
+
+
+![png](https://gitee.com/xrandx/blog-figurebed/raw/master/img/20210420015733.png)
+    
+
+
+
+
+![png](https://gitee.com/xrandx/blog-figurebed/raw/master/img/20210420015744.png)
+    
+
+
+
+
+![png](https://gitee.com/xrandx/blog-figurebed/raw/master/img/20210420015749.png)
+    
+
+
+利用箱型图我们也可以得到不同类别在不同特征上的分布差异情况。
+
+
+```python
+# 选取其前三个特征绘制三维散点图
+from mpl_toolkits.mplot3d import Axes3D
+
+fig = plt.figure(figsize=(10,8))
+ax = fig.add_subplot(111, projection='3d')
+
+data_class0 = data[data['Species']==0].values
+data_class1 = data[data['Species']==1].values
+data_class2 = data[data['Species']==2].values
+# 'setosa'(0), 'versicolor'(1), 'virginica'(2)
+ax.scatter(data_class0[:,0], data_class0[:,1], data_class0[:,2],label=data['Species'].unique()[0])
+ax.scatter(data_class1[:,0], data_class1[:,1], data_class1[:,2],label=data['Species'].unique()[1])
+ax.scatter(data_class2[:,0], data_class2[:,1], data_class2[:,2],label=data['Species'].unique()[2])
+plt.legend()
+
+plt.show()
+```
+
+
+
+![png](https://gitee.com/xrandx/blog-figurebed/raw/master/img/20210420015752.png)
+
+
+
+### Step3: 利用决策树模型在二分类上进行训练和预测
+
+
+```python
+# 为了正确评估模型性能，将数据划分为训练集和测试集，并在训练集上训练模型，在测试集上验证模型性能。
+from sklearn.model_selection import train_test_split
+
+# 选择其类别为0和1的样本 （不包括类别为2的样本）
+data_target_part = data[data['Species'].isin([0,1])][['Species']]
+data_features_part = data[data['Species'].isin([0,1])][['Culmen Length (mm)','Culmen Depth (mm)',
+            'Flipper Length (mm)','Body Mass (g)']]
+
+# 测试集大小为20%， 80%/20%分
+x_train, x_test, y_train, y_test = train_test_split(data_features_part, data_target_part, test_size = 0.2, random_state = 2021)
+```
+
+
+```python
+# 从sklearn中导入决策树模型
+from sklearn.tree import DecisionTreeClassifier
+from sklearn import tree
+# 定义 决策树模型 
+clf = DecisionTreeClassifier(criterion='entropy')
+# 在训练集上训练决策树模型
+clf.fit(x_train, y_train)
+```
+
+
+
+
+    DecisionTreeClassifier(criterion='entropy')
+
+
+
+
+```python
+# 可视化
+import graphviz
+dot_data = tree.export_graphviz(clf, out_file=None)
+graph = graphviz.Source(dot_data)
+graph.render("penguins")
+```
+
+
+
+
+    'penguins.pdf'
+
+
+
+
+```python
+# 在训练集和测试集上分布利用训练好的模型进行预测
+train_predict = clf.predict(x_train)
+test_predict = clf.predict(x_test)
+from sklearn import metrics
+
+# 利用accuracy（准确度）【预测正确的样本数目占总预测样本数目的比例】评估模型效果
+print('The accuracy of the Logistic Regression is:',metrics.accuracy_score(y_train,train_predict))
+print('The accuracy of the Logistic Regression is:',metrics.accuracy_score(y_test,test_predict))
+
+# 查看混淆矩阵 (预测值和真实值的各类情况统计矩阵)
+confusion_matrix_result = metrics.confusion_matrix(test_predict,y_test)
+print('The confusion matrix result:\n',confusion_matrix_result)
+
+# 利用热力图对于结果进行可视化
+plt.figure(figsize=(8, 6))
+sns.heatmap(confusion_matrix_result, annot=True, cmap='Blues')
+plt.xlabel('Predicted labels')
+plt.ylabel('True labels')
+plt.show()
+```
+
+    The accuracy of the Logistic Regression is: 0.9954545454545455
+    The accuracy of the Logistic Regression is: 1.0
+    The confusion matrix result:
+     [[31  0]
+     [ 0 25]]
+
+
+
+
+![png](https://gitee.com/xrandx/blog-figurebed/raw/master/img/20210420015757.png)
+    
+
+
+### Step4:利用 决策树模型 在三分类(多分类)上 进行训练和预测
+
+
+```python
+# 测试集大小为20%， 80%/20%分
+x_train, x_test, y_train, y_test = train_test_split(data[['Culmen Length (mm)','Culmen Depth (mm)',
+            'Flipper Length (mm)','Body Mass (g)']], data[['Species']], test_size = 0.2, random_state = 2021)
+# 定义 决策树模型 
+clf = DecisionTreeClassifier()
+# 在训练集上训练决策树模型
+clf.fit(x_train, y_train)
+```
+
+
+    DecisionTreeClassifier()
+
+
+```python
+# 在训练集和测试集上分布利用训练好的模型进行预测
+train_predict = clf.predict(x_train)
+test_predict = clf.predict(x_test)
+
+# 由于决策树模型是概率预测模型（前文介绍的 p = p(y=1|x,\theta)）,所有我们可以利用 predict_proba 函数预测其概率
+train_predict_proba = clf.predict_proba(x_train)
+test_predict_proba = clf.predict_proba(x_test)
+
+print('The test predict Probability of each class:\n',test_predict_proba)
+# 其中第一列代表预测为0类的概率，第二列代表预测为1类的概率，第三列代表预测为2类的概率。
+
+# 利用accuracy（准确度）【预测正确的样本数目占总预测样本数目的比例】评估模型效果
+print('The accuracy of the Logistic Regression is:',metrics.accuracy_score(y_train,train_predict))
+print('The accuracy of the Logistic Regression is:',metrics.accuracy_score(y_test,test_predict))
+```
+
+    The test predict Probability of each class:
+     [[0.  0.  1. ]
+     [1.  0.  0. ]
+     [1.  0.  0. ]
+     [0.  0.  1. ]
+     [0.  1.  0. ]
+     [1.  0.  0. ]
+     [0.  1.  0. ]
+     [0.  1.  0. ]
+     [1.  0.  0. ]
+     [1.  0.  0. ]
+     [1.  0.  0. ]
+     [0.  0.  1. ]
+     [0.  1.  0. ]
+     [1.  0.  0. ]
+     [0.  0.  1. ]
+     [1.  0.  0. ]
+     [0.  0.  1. ]
+     [0.  1.  0. ]
+     [0.5 0.5 0. ]
+     [1.  0.  0. ]
+     [0.  1.  0. ]
+     [0.  1.  0. ]
+     [0.  1.  0. ]
+     [1.  0.  0. ]
+     [0.  1.  0. ]
+     [1.  0.  0. ]
+     [1.  0.  0. ]
+     [1.  0.  0. ]
+     [0.  1.  0. ]
+     [0.  1.  0. ]
+     [0.  0.  1. ]
+     [1.  0.  0. ]
+     [1.  0.  0. ]
+     [0.  1.  0. ]
+     [0.  0.  1. ]
+     [1.  0.  0. ]
+     [1.  0.  0. ]
+     [1.  0.  0. ]
+     [0.  0.  1. ]
+     [0.  1.  0. ]
+     [1.  0.  0. ]
+     [1.  0.  0. ]
+     [1.  0.  0. ]
+     [0.  0.  1. ]
+     [1.  0.  0. ]
+     [1.  0.  0. ]
+     [1.  0.  0. ]
+     [1.  0.  0. ]
+     [0.  1.  0. ]
+     [0.  0.  1. ]
+     [1.  0.  0. ]
+     [0.  1.  0. ]
+     [1.  0.  0. ]
+     [0.  0.  1. ]
+     [0.  0.  1. ]
+     [0.  1.  0. ]
+     [0.  1.  0. ]
+     [1.  0.  0. ]
+     [1.  0.  0. ]
+     [0.  1.  0. ]
+     [0.  1.  0. ]
+     [1.  0.  0. ]
+     [0.  1.  0. ]
+     [0.  0.  1. ]
+     [1.  0.  0. ]
+     [1.  0.  0. ]
+     [0.  0.  1. ]
+     [0.  1.  0. ]
+     [1.  0.  0. ]]
+    The accuracy of the Logistic Regression is: 0.9963636363636363
+    The accuracy of the Logistic Regression is: 0.9710144927536232
+
+
+
+    The confusion matrix result:
+     [[33  0  1]
+     [ 0 21  0]
+     [ 1  0 13]]
+
+
+
+
+![png](https://gitee.com/xrandx/blog-figurebed/raw/master/img/20210420015801.png)
+    
+
+## 实验 3
+
+下载蘑菇数据集，来判断蘑菇是不是有毒吧！
+
+ https://www.kaggle.com/uciml/mushroom-classification
+
+```python
+# 举例：绘图案例 an example of matplotlib
+%matplotlib inline
+import numpy as np
+import matplotlib.pyplot as plt
+```
+
+
+```python
+import pandas as pd
+data = pd.read_csv("mushrooms_new.csv")
+data.head()
+from sklearn.preprocessing import LabelEncoder
+for col in data:
+    data[col] = LabelEncoder().fit_transform(data[col])
+# data.head()
+
+```
+
+
+```python
+# data.describe()
+```
+
+
+```python
+# data.info()
+```
+
+
+```python
+x_feature, y = data[data.columns.drop("class")], data["class"]
+# x_feature.head()
+# y.head()
+# y.unique()
+# x_feature.unique()
+
+
+```
+
+
+```python
+from sklearn.tree import DecisionTreeClassifier
+from sklearn import tree
+clf = DecisionTreeClassifier()
+clf.fit(x_feature, y)
+
+```
+
+
+
+
+    DecisionTreeClassifier()
+
+
+
+
+```python
+from sklearn import tree
+import graphviz
+dot_data = tree.export_graphviz(clf, out_file=None)
+graph = graphviz.Source(dot_data)
+graph.render("mushroom")
+```
+
+
+
+
+    'mushroom.pdf'
+
+
+
 ## 本文资料参考
 
 [决策树（Decision Tree）-ID3、C4.5、CART比较](https://www.cnblogs.com/huangyc/p/9768858.html)

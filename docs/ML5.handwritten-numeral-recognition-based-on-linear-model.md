@@ -161,7 +161,7 @@ def logistic_regression(X, y, aim_digit):
 
 ### 评价指标
 
-准确率**(accuracy**)计算公式为：
+准确率(accuracy)计算公式为：
 $$
 A C C=\frac{T P+T N}{T P+T N+F P+F N}
 $$
@@ -182,8 +182,6 @@ F-Measure 是 Precision 和 Recall 加权调和平均。F1 度量为
 $$
 F = \frac{2\times P\times R}{P+R}
 $$
-
-
 
 ```python
 def get_accuracy(W, X_test, y_test, aim_digit):
