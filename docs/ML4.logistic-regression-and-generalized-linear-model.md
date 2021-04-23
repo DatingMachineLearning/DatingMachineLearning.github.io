@@ -12,17 +12,19 @@ $$
 \left [  \begin{aligned} --\mathbf{x_1^\top} -- \\ --\mathbf{x_2^\top} --\\ --\dots -- \\ --\mathbf{x_N^\top}-- \\ \end{aligned} \right ]  \end{aligned}
 $$
 模型是 $h(\mathbf{x})=\mathbf{w}^\top \mathbf{x}=\sum_{i=0}^{n} w_{i} \cdot x_{i}$ ，最优解为 $\mathbf{w^*}  =  (\mathbf{X^\top} \mathbf{X} )^{-1} \mathbf{X^\top} \mathbf{y}
-= X^\dagger \mathbf{y}$ ，代入 $E_\mathrm{in}(\mathbf{w}) = \frac{1}{N}  \| \mathbf{X}\mathbf{w} - \mathbf{y} \| ^2$，得：
+= X^\dagger \mathbf{y}$ ，代入 $E_\mathrm{in}(\mathbf{w}) = \frac{1}{N}  \|\mathbf{y}  -   \mathbf{X}\mathbf{w}\| ^2$，得：
 $$
 \begin{aligned}
-E_\mathrm{in}(\mathbf{w^*}) & = \frac{1}{N}  \| \mathbf{X}\mathbf{X}^\dagger \mathbf{y}  - \mathbf{y} \| ^2 \\
+E_\mathrm{in}(\mathbf{w^*})  
 & = \frac{1}{N}  \|    \mathbf{y} -  \mathbf{X}\mathbf{X}^\dagger \mathbf{y} \| ^2 \\
 & = \frac{1}{N}  \|    (\mathbf{I} - \mathbf{X}\mathbf{X}^\dagger)  \mathbf{y} \| ^2 \\
 & = \frac{1}{N}  \|    (\mathbf{I} - \mathbf{H} )  \mathbf{y} \| ^2
 
 \end{aligned}
 $$
-注：投影矩阵 $P ∈ \mathbb{R}_{n×n}$ 是正交投影矩阵的充要条件 $P^\top = P$
+$\mathbf{I- H} $ 是一个投影算子。
+
+注：一个从向量空间**V**射到它自身的线性变换 *P* 是投影，当且仅当 $P^{2}=P$。投影矩阵 $P ∈ \mathbb{R}_{n×n}$ 是正交投影矩阵的充要条件 $P^\top = P$
 
 
 
@@ -47,7 +49,6 @@ $$
 $$
 \begin{aligned}
 E_\mathrm{in}(\mathbf{w^*})  
-&= \frac{1}{N}\sum_{i=1}^{N}(\mathbf{y} - \mathbf{\hat{y}})^2 \\
 &= \frac{1}{N}\sum_{i=1}^{N}((\mathbf{I} - \mathbf{H})\mathbf{y})^2 \\
 &= \frac{1}{n}\sum_{i=1}^{N}((\mathbf{I} - \mathbf{H})\mathbf{z})^2 \\
 \end{aligned}
