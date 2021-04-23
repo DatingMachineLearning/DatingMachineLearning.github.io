@@ -12,10 +12,17 @@ $$
 \left [  \begin{aligned} --\mathbf{x_1^\top} -- \\ --\mathbf{x_2^\top} --\\ --\dots -- \\ --\mathbf{x_N^\top}-- \\ \end{aligned} \right ]  \end{aligned}
 $$
 模型是 $h(\mathbf{x})=\mathbf{w}^\top \mathbf{x}=\sum_{i=0}^{n} w_{i} \cdot x_{i}$ ，最优解为 $\mathbf{w^*}  =  (\mathbf{X^\top} \mathbf{X} )^{-1} \mathbf{X^\top} \mathbf{y}
-= X^\dagger \mathbf{y}$ ，代入 $E_\mathrm{in}(\mathbf{w}) = \frac{1}{N}  \|\mathbf{y}  -   \mathbf{X}\mathbf{w}\| ^2$，得：
+= \mathbf{X ^\dagger} \mathbf{y}$ ，那么这样的解有什么几何意义？
+
+
+
+
+
+代入 $E_\mathrm{in}(\mathbf{w}) $，得：
 $$
 \begin{aligned}
 E_\mathrm{in}(\mathbf{w^*})  
+& = = \frac{1}{N}  \|\mathbf{y}  -   \mathbf{X}\mathbf{w}\| ^2 \\
 & = \frac{1}{N}  \|    \mathbf{y} -  \mathbf{X}\mathbf{X}^\dagger \mathbf{y} \| ^2 \\
 & = \frac{1}{N}  \|    (\mathbf{I} - \mathbf{X}\mathbf{X}^\dagger)  \mathbf{y} \| ^2 \\
 & = \frac{1}{N}  \|    (\mathbf{I} - \mathbf{H} )  \mathbf{y} \| ^2
@@ -32,8 +39,22 @@ $\mathbf{I- H} $ 是一个投影算子。
 
 如果待拟合数据任意两个属性都线性无关的话，$\mathbf{X}$ 就可以看成一个由它的所有列向量所张成的空间。
 
+属性的数目 $n$ 会远远小于数据的数目 $N$，因此 $\mathbf{X}$ 张成的是 $N$ 维空间之内的 $n$ 维生成子空间，或者叫 $n$ 维超平面。理想条件下，输出 $\mathbf{y}$ 作为属性的线性组合，也应该出现在由数据属性构成的超平面上。但受噪声的影响，真正的 $\mathbf{y}$ 是超平面之外的一个点，这时就要退而求其次，在超平面上找到离 $\mathbf{y}$ 最近的点作为最佳的近似。
 
-属性的数目 $n$ 会远远小于数据的数目 $N$，因此 $\mathbf{X}$ 张成的是 $N$ 维空间之内的 $n$ 维生成子空间，或者叫 $n$ 维超平面。这个超平面的每一个维度都对应着数据集的一个列向量。理想条件下，输出 $\mathbf{y}$ 作为属性的线性组合，也应该出现在由数据属性构成的超平面上。但受噪声的影响，真正的 $\mathbf{y}$ 是超平面之外的一个点，这时就要退而求其次，在超平面上找到离 $\mathbf{y}$ 最近的点作为最佳的近似。
+根据几何知识可以知道，最佳近似值 $\mathbf{\hat y}$ 就是 $\mathbf{y}$ 在超平面上的投影，而最佳近似所对应的系数 $\mathbf{  w^*}$ 就是线性回归的解，$\mathbf {\hat y }= \mathbf{X}\mathbf{w^*} $ 就是 $\mathbf{X}$ 内的一个向量，并且是关于 $\mathbf{w^*}$ 的线性组合。
+
+点 $\mathbf {\hat y }= \mathbf{X}\mathbf{w^*} $和 $\mathbf y$ 之间的距离就是估计误差，也叫残差（residual），它就是最小二乘法最小化的对象，其表达式是 $||\mathbf {  y }- \mathbf{X}\mathbf{w^*} ||$ 。由于 $\mathbf {  y }- \mathbf{X}\mathbf{w^*}$ 垂直于 $\mathbf{X}$ 生成子空间。所以，
+$$
+\mathbf{X} (\mathbf {  y }- \mathbf{X}\mathbf{w^*}) = \mathbf 0
+$$
+因此，
+$$
+\begin{aligned}
+\mathbf{X}  \mathbf {  y } &= \mathbf{X}\mathbf{X}\mathbf{w^*} \\
+\Leftrightarrow \mathbf{w^*} &= \mathbf{ X^\dagger}\mathbf {  y }
+\end{aligned}
+$$
+这个式子说明了最小二乘法的几何意义：**计算高维空间上的输出结果在由所有属性共同定义的低维空间上的正交投影**（orthogonal projection）。投影操作意味着残差不会在数据维度上遗留任何分量，这种基于误差和数据正交性的最优解也经常出现在信号处理当中。注意：
 
 - 黄色区域表示由所有属性张成的超平面；
 - 黑色向量 $\mathbf{x_1}$ 和天蓝色向量 $\mathbf{x_2}$ 表示输入向量；
