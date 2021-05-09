@@ -29,9 +29,11 @@ E_\mathrm{in}(\mathbf{w^*})
 
 \end{aligned}
 $$
-$\mathbf{I- H} $ 是一个投影算子。
+$\mathbf{H} $ 是一个投影算子，把 $\mathbf{y}$ 变成 $\mathbf{\hat{y}}$ 。
 
 注：一个从向量空间**V**射到它自身的线性变换 *P* 是投影，当且仅当 $P^{2}=P$。投影矩阵 $P ∈ \mathbb{R}_{n×n}$ 是正交投影矩阵的充要条件 $P^\top = P$
+
+$\mathbf{I - H} $ 把 $\mathbf{y}$ 变成 $\mathbf{y - \hat{y}}$ 。
 
 
 
