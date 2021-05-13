@@ -1,5 +1,6 @@
 - [前言](README.md)
 - [**Python 入门系列**](python/_sidebar.md)
+- [0. 机器学习-可学性基础.md](/0. 机器学习-可学性基础.md)
 
 
 - [ML1. 机器学习入门](ML1.introduction-to-machine-learning.md)
