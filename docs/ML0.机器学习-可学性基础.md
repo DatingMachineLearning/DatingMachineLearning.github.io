@@ -1,3 +1,7 @@
+# 机器学习的科学性
+
+![visitor badge](https://visitor-badge.glitch.me/badge?page_id=xrandx.Dating-with-Machine-Learning)
+
 ## 1. 学习问题
 
 ### 1.1 什么是机器学习
@@ -113,7 +117,7 @@ $$
 
 ### 3.2 线的有效数量
 
-[机器学习基石笔记(2) | 天空的城 (shomy.top)](https://shomy.top/2016/10/09/feasibility-of-learning-2/)
+> [机器学习基石笔记(2) | 天空的城 (shomy.top)](https://shomy.top/2016/10/09/feasibility-of-learning-2/)
 
 现在，我们考虑一下， BAD DATA的推导公式:  
 $$
@@ -125,9 +129,9 @@ $$
 
 ![img](https://gitee.com/xrandx/blog-figurebed/raw/master/img/20210509192729.png)
 
-也就是说我们上面的  $unionbound$  是 over-estimating 的，过大估计了。这样好像就看到了曙光，即使 $M$ 无穷大，但是实际上很多的重复部分，因此我们只需要知道类别的数目是不是就可以代替无穷大的 $M$ 了，先看几个简单的例子.
+也就是说我们上面的 union-bound 是 over-estimating 的，过大估计了。这样好像就看到了曙光，即使 $M$ 无穷大，但是实际上很多的重复部分，因此我们只需要知道类别的数目是不是就可以代替无穷大的 $M$ 了，先看几个简单的例子.
 
-在PAL中， $\mathcal{H} = \{ all \ lines \ in \ \mathcal{R}^2 \}$ , 首先有无穷多条直线，但是看看对不同的输入,看看有几类呢？
+在 PLA 中， $\mathcal{H} = \{ all \ lines \ in \ \mathcal{R}^2 \}$ , 首先有无穷多条直线，但是看看对不同的输入,看看有几类呢？
 
 ![learning](https://gitee.com/xrandx/blog-figurebed/raw/master/img/20210509192712.png)
 
@@ -152,23 +156,31 @@ $$
 
 ![learning](https://gitee.com/xrandx/blog-figurebed/raw/master/img/20210509192724.png)
 
-以及其对称图形 那么问题来了，对于N个输入的input,到底有多少类直线呢，首先肯定不会超过 $2^N$ ，因为每个点要么被分到O，要么被分到X。综合上面说的，我们把M可以替换为实际有的类别数目，这样我们的之前的公式就可以改写为：  
+以及其对称图形 那么问题来了，对于 N 个输入的 input，到底有多少类直线呢，首先肯定不会超过 $2^N$，因为每个点要么被分到O，要么被分到X。综合上面说的，我们把M可以替换为实际有的类别数目，这样我们的之前的公式就可以改写为：  
 $$
  P[ | E_{in} - E_{out} | > \epsilon ] \leq 2 \cdot effective(N) \cdot exp \lgroup -2 \epsilon^2N\rgroup 
 $$
- 下面就是如何求这个 $effective(N)$ 了
+问题就是如何求这个 $effective(N)$ 了。
 
 ### 3.3 假设的有效数量：对分
 
-接下来先介绍一个新名词：**对分**（dichotomy）。dichotomy就是将空间中的点（例 如二维平面）用一条直线分成正类（蓝色o）和负类（红色x）。令H是将平面上的点 用直线分开的所有hypothesis h的集合，dichotomy H与hypotheses H的关系是： hypotheses H是平面上所有直线的集合，个数可能是无限个，而 dichotomy H是平面上能将点完全用直线分开的直线种类，它的上界是 。接下来，我们要做的就是尝试用 dichotomy 代替 M 。
+接下来先介绍一个新名词：**对分**（dichotomy）。dichotomy 就是将空间中的点（例如二维平面）用一条直线分成正类（蓝色o）和负类（红色x）。令 H 是将平面上的点 用直线分开的所有 hypothesis H 的集合，dichotomy H 与 hypotheses H 的关系是： hypotheses H是平面上所有直线的集合，个数可能是无限个，而 dichotomy H 是平面上能将点完全用直线分开的直线种类，它的上界是 $2^N$ 。接下来，我们要做的就是尝试用 dichotomy 代替 M 。
 
-我们想要的是 $\mathcal{H}$ 里面的所有的 $h$ 可以在 $\mathcal{D}$ 上产生多少种结果，也就是上面的  $effective N$ 。每一种结果我们称为一个**Dichotomies** ,比如上述 $\{ ooxx\}$  就是一个 dichotomies ,很明显，对于输入 $(x_1, x_2...x_N)$ , 最多有 $2^N$ 个 Dichotomies。每一个 Dichotomies 都是一类 $h$ 产生的。称 $\mathcal{H}(x_1, x_2,..,x_N) = \{ dichotomies\}$ 。 比如上面举的例子中，三个输入情况下:  $\mathcal{H}(x_1, x_2, x_3) = \{ ooo, oox, oxo, oxx, xxx, xxo, xox, xoo\}$  。
+<img src="https://gitee.com/xrandx/blog-figurebed/raw/master/img/20210520101226.png" alt="图片1" style="zoom:50%;" />
 
-我们发现 $\mathcal{H}(x_1, x_2,..,x_N)$ 是跟 $x_1, x_2, ..x_N$ 相关的，因此为了去掉这一个影响因素，基于Dichotomies, 我们定义成长函数: 
+<img src="https://gitee.com/xrandx/blog-figurebed/raw/master/img/20210520101256.png" alt="图片2" style="zoom:50%;" />
+
+<img src="https://gitee.com/xrandx/blog-figurebed/raw/master/img/20210520101435.png" alt="图片3" style="zoom:50%;" />
+
+（忽略上面三点共线的影响，就是忽略 x 的位置对 H 的影响）
+
+我们想要的是 $\mathcal{H}$ 里面的所有的 $h$ 可以在 $\mathcal{D}$ 上产生多少种结果，也就是上面的  $effective N$ 。每一种结果我们称为一个**dichotomies** ,比如上述 $\{ ooxx\}$  就是一个 dichotomies ,很明显，对于输入 $(x_1, x_2...x_N)$ , 最多有 $2^N$ 个 dichotomies。每一个 dichotomies 都是一类 $h$ 产生的。称 $\mathcal{H}(x_1, x_2,..,x_N) = \{ dichotomies\}$ 。 比如上面举的例子中，三个输入情况下:  $\mathcal{H}(x_1, x_2, x_3) = \{ ooo, oox, oxo, oxx, xxx, xxo, xox, xoo\}$  。
+
+我们发现 $\mathcal{H}(x_1, x_2,..,x_N)$ 是跟 $x_1, x_2, ..x_N$ 相关的，因此为了去掉这一个影响因素，基于dichotomies, 我们定义成长函数: 
 $$
 m_{\mathcal{H}} = max(| \mathcal{H}(x_1, x_2, ..., )|), x_1, x_2...x_N \in \chi
 $$
-很明显，它是关于 $N, \mathcal{H}$ 的函数，我们计算下在上述的例子中的成长函数的值
+很明显，它是关于 $N, \mathcal{H}$ 的函数，我们计算下在上述的例子中的成长函数的值：
 
 | N    |  $m_{\mathcal{H}}(N)$  |
 | :--- | :--------------------- |
@@ -181,7 +193,9 @@ $$
 
 下面举几个不同的 $\mathcal{H}$ 的成长函数。
 
-1. **Positive Rays**:  $h(x) = sign(x-a)$ , 输入空间为一维向量， 当 $x_i \geq a$ , 输出 +1, 当 $x_i < a$  时， 输出 -1。如下：![img](https://gitee.com/xrandx/blog-figurebed/raw/master/img/20210509204558.png)
+1. **Positive Rays**:  $h(x) = sign(x-a)$ , 输入空间为一维向量， 当 $x_i \geq a$ , 输出 +1, 当 $x_i < a$  时， 输出 -1。如下：
+
+   ![img](https://gitee.com/xrandx/blog-figurebed/raw/master/img/20210509204558.png)
 
    若有N个点，则整个区域可分为N+1段，很容易得到其成长函数 $m_{\mathcal{H}} (N)  =N + 1$，$N$ 很大时，$(N+1) \ll 2^N$
 
@@ -199,7 +213,7 @@ $$
 
    <img src="https://gitee.com/xrandx/blog-figurebed/raw/master/img/20210509200646.png" alt="2021-05-09_20-06-40" style="zoom: 67%;" />
 
-这个 $\mathcal{H}$ 的成长函数，也就是说最多有多少个 dic，下面可以这样构造一 $\mathcal{D}$ , 可以使得 $m_{\mathcal{H}}(N) = 2^N$ ,将所有的输入点在一个圆上，如下所示：
+这个 $\mathcal{H}$ 的成长函数，也就是说最多有多少个 dichotomies，下面可以这样构造一 $\mathcal{D}$ , 可以使得 $m_{\mathcal{H}}(N) = 2^N$ ,将所有的输入点在一个圆上，如下所示：
 
 ![learning](https://gitee.com/xrandx/blog-figurebed/raw/master/img/20210509195540.png)
 
@@ -218,36 +232,46 @@ $$
 
 下面我们开始探讨成长函数的增长速度。随着N的增大，成长函数的值 $m_{\mathcal{H}}(N)$ 第一次小于 $2^N$ 的N的取值，我们称为 **break point**。
 
-对于2D perceptrons，我们之前分析了3个点，可以做出8种所有的dichotomy，而 4 个点，就无法做出所有16个点的dichotomy了。所以，我们就把4称为2D perceptrons的 break point（5、6、7等都是break point）。令有 k 个点，如果k大于等于break point 时，它的成长函数一定小于2的 k 次方。
+对于2D perceptron，我们之前分析了 3 个点，可以做出8种所有的dichotomy，而 4 个点，就无法做出所有16个点的dichotomy了。所以，我们就把 4 称为2D perceptron 的 break point（5、6、7等都是break point）。令有 k 个点，如果k大于等于break point 时，它的成长函数一定小于2的 k 次方。
 $$
-\begin{align} m_{\mathcal{H}}(K-1) & = 2^N \\ m_{\mathcal{H}}(K) & < 2^K \\ \end{align}
+\begin{aligned} 
+m_{\mathcal{H}}(K-1) & = 2^N \\ m_{\mathcal{H}}(K) & < 2^K
+\end{aligned}
 $$
 我们称K为 $\mathcal{H}$ 的 **break point** 。为什么要找K呢，因为我们想证明成长函数服从一个多项式的增长，而不是 $2^N$ , 而第一个开始小于 $2^N$ 的那个N，肯定需要着重考察。比如上面的几个例子里面:
 
-- postive rays: $m_{}(N) = N + 1 = O(N)$ break-point: 2
-- postive intervals:  $m_{\mathcal{H}}(N) = \frac{1}{2}N_2 + \frac{1}{2}N+1=O(N^2)$ break-point: 3 
-- convex sets: $m_{}(N) = 2^N $no break-point
-- 2D perceptrons:  break-point : 4 
+- positive rays
+  - $m_{}(N) = N + 1 = O(N)$ 
+  - break-point = 2
+- positive intervals
+  - $m_{\mathcal{H}}(N) = \frac{1}{2}N_2 + \frac{1}{2}N+1=O(N^2)$ 
+  - break-point = 3 
+- convex sets
+  - $m_{}(N) = 2^N $
+  - no break-point
+- 2D perceptron
+  - break-point = 4 
 
 如果 $m_{\mathcal{H}}(N) = 2^N$ ，即当 $N < K$ （K为断点） 时，我们称， $\mathcal{H}$ 把 $\mathcal{D}_N$ 这 N 个 input，shatter 了。或者说，这N个输入被 $\mathcal{H}$  shatter 了。若 $N > K$，那无论如何都不会 shatter 。通俗一点就是说，我们的 $\mathcal{H}$ 可以产生所有可能的输出。这几个概念在后续会一直用到。
 
 ### 总结
 
-
-[如何通俗地理解机器学习中的 VC 维、shatter 和 break point？ - 知乎 (zhihu.com)](https://www.zhihu.com/question/38607822/answer/149407083)
-
-> 增长函数表示假设空间 H 对 N 个示例所能赋予标记的最大可能结果数。
+> 成长函数，表示假设空间 H 对 N 个示例所能赋予标记的最大可能结果数。
 >
-> 对于二分类问题来说，H 中的假设对 D 中 N 个示例赋予标记的每种可能结果称为对 D 的一种**对分（dichotomy）**。对分也是增长函数的一种上限。
+> 对于二分类问题来说，H 中的假设对 D 中 N 个示例赋予标记的每种可能结果称为对 D 的一种**对分（dichotomy）**。
+>
+> 对分也是增长函数的一种上限。
 >
 > 打散指的是假设空间H能实现数据集D上全部示例的对分，即增长函数是 $2^N$
+>
+> [如何通俗地理解机器学习中的 VC 维、shatter 和 break point？ - 知乎 (zhihu.com)](https://www.zhihu.com/question/38607822/answer/149407083)
 ## 4. 泛化理论 Theory of Generalization
 
 ### 4.1 断点的限制 Restriction of Break Point
 
-上一节，我们把 leaning问题归结到了我们提到需要证明dichotomies是多项式的，这样就可以保证在N比较大的时候，BAD DATA出现的概率是很小的，这样就说明我们的 learning学到了东西，可以用来预测。
+上一节，我们把 leaning问题归结到了我们提到需要证明 dichotomies 是多项式的，这样就可以保证在N比较大的时候，BAD DATA出现的概率是很小的，这样就说明我们的 learning学到了东西，可以用来预测。
 
-我们发现当N>k时，break point限制了增长函数 $m_{\mathcal{H}} $ 的大小。影响因素主要有两个：
+我们发现当 N > k 时，break point限制了增长函数 $m_{\mathcal{H}} $ 的大小。影响因素主要有两个：
 
 - 抽样数据集 N
 - break point K（这个变量确定了假设的类型）
@@ -261,6 +285,10 @@ $$
 B(N, k) \leq ploy(N)
 $$
 引入界限函数是为了简化问题，我们可以不去关心具体分类算法是一维感知机还是二维的，只关心界限函数的大小。
+
+根据经验：
+
+![image-20210520101656980](https://gitee.com/xrandx/blog-figurebed/raw/master/img/20210520101657.png)
 
  求解 $B(N, k)$ 的过程十分巧妙：
 
@@ -286,13 +314,73 @@ $$
 $$
 P\left[ | E_{in}(h) - E_{out}(h)| > \epsilon \right] \leq 2 m_{\mathcal{H}}(N) exp(-2\epsilon^2N)
 $$
-我们知道当出现 BAD DATA 时候， 会导致 $E_{in}$ 与 $E_{out}$ 变大，此时 learning 并不可行，因此我们开始计算BAD DATA出现的概率，它与 $\mathcal{H}$ 的数目有关系，而很多情况，h都是无限的，于是我们转为求h中的类别数目，我们定义了 $dichotomies$  以及 $m_{\mathcal{H}}(N)$ , 也就是上述的不等式，在一些简单的情况下， $m_{\mathcal{H}}(N)$ 是很容易求的，比如 postive rays 里面,  $m_{\mathcal{H}} = N+1$  等，但是很多我们并不能求出来，比如 2D percertron,(PLA), 这个时候，我们定义 break point 转而去求 $m_{\mathcal{H}}$ 的上界 $B(N,K)$ ，最终我们证明了 $B(N,K) = O(N^{K-1})$ 。到这里我们基本证明以 Perceptrons 为例，说明了为什么机器可以学习，为什么训练数据集越大，测试效果越好。 不过还有点小问题，在下面说明。
+我们知道当出现 BAD DATA 时候， 会导致 $E_{in}$ 与 $E_{out}$ 变大，此时 learning 并不可行，因此我们开始计算BAD DATA出现的概率，它与 $\mathcal{H}$ 的数目有关系，而很多情况，h都是无限的，于是我们转为求h中的类别数目，我们定义了 $dichotomies$  以及 $m_{\mathcal{H}}(N)$ , 也就是上述的不等式，在一些简单的情况下， $m_{\mathcal{H}}(N)$ 是很容易求的，比如 positive rays 里面,  $m_{\mathcal{H}} = N+1$  等，但是很多我们并不能求出来，比如 2D perceptron,(PLA), 这个时候，我们定义 break point 转而去求 $m_{\mathcal{H}}$ 的上界 $B(N,K)$ ，最终我们证明了 $B(N,K) = O(N^{K-1})$ 。到这里我们基本证明以 perceptron 为例，说明了为什么机器可以学习，为什么训练数据集越大，测试效果越好。 不过还有点小问题，在下面说明。
+
+### 4.3 VC Dimension
+
+我们前面基本都在围绕这训练数据也就是 $\mathcal{D}$ 或者 $E_{in}$ 讨论，把 $\mathcal{H}$ 根据在 $\mathcal{D}$ 上的表现分门别类，这样 $E_{in}$ 就会是有限个，但是却忽略了每一个 $h$ 的 $E_{out}$  是不一样的，也就是说 $E_{out}(h)$ 是无穷多个的，所以说上述的不等式是不太严谨的，实际上的不等式是下面的
+
+$$
+ \begin{align} \mathbb{P}[BAD] &= \mathbb{P}[\exists h \in \mathcal{H}\text{ s.t. } |E_{in}(h)-E_{out}(h)|\gt \epsilon] \\\ &\leq 4m_{\mathcal{H}}(2N)exp(-\frac{1}{8}\epsilon^2N) \end{align} 
+$$
+
+证明的主要原则是，如果某个 $E_{in}$ 与 $E_{out}$ 的差别很大时，那么我们重新找一份数据集 $D^{'}$ , 那么 $E_{in}^{'}$ 也会有很大的几率与 $E_{in}$ 差别很大。 具体证明还没搞太明白，先记下了。另外，上面的不等式就是 VC-bound。
+
+下面我们基于break point 给出 VC Dimension(VC 维)的定义:
+$$
+d_{VC}(\mathcal{H})= \mathop{\arg\max}\limits_{N}( m_{\mathcal{H}} (N)) |_{m_{\mathcal{H}} (N) = 2^N}
+$$
+也就是 break point K 的前一个:  $d_{VC} = K - 1$ (break point存在的前提下)。我们可以看看上述的4种 $\mathcal{H}$ 的 VC Dimension：
+
+<img src="https://gitee.com/xrandx/blog-figurebed/raw/master/img/20210520104406.png" alt="image-20210520104406908" style="zoom: 67%;" />
+
+下面我们看看VC维可以给我们带来什么信息。已知成长函数 $m_{\mathcal{H}} \leq N^{k-1}=N^{d_{vc}}$ ，然后代入上述的VC Bound:
+
+$$
+\begin{align*} \mathbb{P}[BAD] &= \mathbb{P}[\exists h \in \mathcal{H}\text{ s.t. } |E_{in}(h)-E_{out}(h)|\gt \epsilon] \\ &\leq 4m_{\mathcal{H}}(2N)exp(-\frac{1}{8}\epsilon^2N) \\ &= 4(2N)^{d_{vc}} exp(-\frac{1}{8}\epsilon^2N)\end{align*}
+$$
+那么怎么样才可以说明机器学到了东西呢？有以下三点:
+
+- 存在 break point 即  $d_{vc}(\mathcal{H})$ 是有限的，这样的 $\mathcal{H}$ 才好。
+
+- 训练数据足够多: N 够大，这样 VC bound 可以约束 $E_{in} = E_{out}$ 
+
+- 算法 $\mathcal{}A$  可以找到一个 $E_{in}$ 最小的 H
+
+这样我们就可以说 learned something。以2D Perceptron 为例如下：
 
 
+当然实际中， $E_{in}$ 很难为0。那我们可以怎么去理解这个VC 维度呢？ 由定义可以知道，VC 维与学习算法 $\mathcal{H}$ ，输入数据 $\mathcal{D}$ ，以及目标的理想函数 $f$ 都是无关的， 它是假设空间 $\mathcal{H}$ 的一个描述，刻画出了 $\mathcal{H}$ 的powerfulness，因为 $d_{vc}$ 越大，可以shatter的点就越多，能力就越强，也就是说我们的 $d_{vc}(\mathcal{H})$ 越大，那么就越可以保证存在一个 h,使得 $E_{in}(h)$ 越小。
+
+那我们应该如何去求解VC 维呢？ 总不能一个一个试，看看能不能被shatter掉。这时候就引入了模型自由度的概念。我们定义模型当中可以自由变动的参数的个数，也就是需要求的参数的个数作为模型自由度，比如在 PLA中，参数为 $w_0,w_1...w_d$  一共有 $d+1$ 个，那么模型的自由度就是 $d+1$ ，同时我们也知道假设空间 $\mathcal{H}$ 的VC 维是  $d+1$ 。这不是巧合，有个经验规律：VC维**约等于**模型的自由度，即参数的个数。以后我们就可以用模型自由度近似代替 $d_{vc}$ 的数值了。
+
+再次回到 VC Bound
+$$
+\mathbb{P}[\exists h \in \mathcal{H}\text{ s.t. } |E_{in}(h)-E_{out}(h)|\gt \epsilon] = 4(2N)^{d_{vc}} exp(-\frac{1}{8}\epsilon^2N)
+$$
+其中等式右边为坏数据发生的概率，我们设为 $\delta$ ,那么好数据的概率就是 $1-\delta$ ，在统计学中，这个 $1-\delta$ 又叫做置信度。有了 $\delta$ ，我们可以反解出误差率(也叫泛化误差) $\epsilon$ :
+$$
+ \epsilon= \sqrt{\frac{8}{N}ln(\frac{4(2N)^{d_{vc}}}{\delta})} 
+$$
+它就是 $E_{in}$ 和 $E_{out}$ 的差距，对于好数据来说，有很大的几率： $\| E_{in} - E_{out} \| < \epsilon$ ，代入  $\epsilon$ 即:
+$$
+E_{in}(g)-\sqrt{\frac{8}{N}ln(\frac{4(2N)^{d_{vc}}}{\delta})} \leq E_{out}(g) \leq E_{in}(g)+\sqrt{\frac{8}{N}ln(\frac{4(2N)^{d_{vc}}}{\delta})} 
+$$
+其中根号里面的式子 $\Omega (N,\mathcal{H},\delta)=\sqrt{...}$  称为model complexity(模型复杂度)。自始至终我们最关心的肯定是 $E_{out}$ ，我们的目标就是让它越小越好，这样才可以在未知数据中表现的好，从不等式中，我们可以看出 $E_{out}$ 的上限会被模型复杂度影响。根据上述的不等式，有了下述的一个关系图:
+
+<img src="https://gitee.com/xrandx/blog-figurebed/raw/master/img/20210520104338.png" alt="test" style="zoom: 67%;" />
 
 
+这个图很重要，也很常用，随着 $d_{vc}$ 的上升， $E_{in}$ 越来越低，但是 model complexity 会一直变大，这样就会导致 $E_{out}$ 也会慢慢变大！这并不是我们想要的结果。也就是说并不是你的 $\mathcal{H}$ 越强大越好其实这个就对应后面讲的过拟合的问题，因此我们需要的是图中的 $d_{vc}^{*}$ 的位置的模型，一个折中的选择，这个也可以对应奥卡姆剃刀理论，简单至上。
 
-[通俗易懂，什么是VC维 | Tsukiyo (xhxt2008.live)](https://xhxt2008.live/2018/05/11/VC-dimension/)
+最后再说明下样本复杂度的影响，以一个例子做说明，如下：
+
+![图片1](https://gitee.com/xrandx/blog-figurebed/raw/master/img/20210520104711.png)
+
+
+就是对于 2D perceptron，给定了误差率 $\epsilon$ ，置信度 $1-\delta=0.9$ 。让求需要多少数据量才可以满足条件。很简单直接代入公式就好了，我们可以看出，大概需要3w左右也就是10000倍的 $d_{vc}$ 的训练数据量才可以达到90%的置信度，这可能有点难以接受。幸亏这只是上界，在实际经验中，仅仅需要 10 倍的 $d_{vc}$ 就可以达到要求。我们发现，VC Bound 的 lossness是十分松弛的，这正是因为我们一直都是再取上界的上界，都是在进行放缩操作，比如 $m_{\mathcal{H}}(N) \leq N^(k-1)$ 。再加上VC Bound的通用性，与数据的分布什么的都没关系。
+
+总结一下的话， 其实就是介绍了VC维的定义，以及我们可以用模型自由度来近似代替VC维的大小，最后介绍了VC维以及VC bound 带给我们什么信息，它与训练误差，测试误差之间的联系等。VC 维是个很重要的概念，是机器学习可以学习的理论基础，我们有了合适的 $d_{vc}$ ，有足够的训练数据量，有一个好的算法可以找到一个 $E_{in}$ 最小的h，就说明我们的机器学到东西了。总算总结完了，VC-Dimension 这个坑到今天总算填上了。
 
 > 根据前面的推导，我们知道VC维的大小：
 >
@@ -303,10 +391,32 @@ $$
 > - 与我们求解的目标函数f 无关。
 >
 > 它只与**模型**和**假设空间**有关。
+>
+> [通俗易懂，什么是VC维 | Tsukiyo (xhxt2008.live)](https://xhxt2008.live/2018/05/11/VC-dimension/)
 
+---
 
+1. What statement below shows that $d_{vc} \ge  d+1$?
 
+   A. There are some $d+1$ inputs we can shatter.
 
+   B. We can shatter any set of $d+1$ inputs.
+
+   C. There are some $d+2$ inputs we cannot shatter.
+
+   D. We cannot shatter any set of $d+2$ inputs.
+   
+2. What statement below shows that $d_{vc} \le  d+1$?
+
+   A. There are some $d+1$ inputs we can shatter.
+
+   B. We can shatter any set of $d+1$ inputs.
+
+   C. There are some $d+2$ inputs we cannot shatter.
+
+   D. We cannot shatter any set of $d+2$ inputs.
+
+3. A, D 因为成长函数是所有可能性的最大值。所以 d-PLA 的 $d_{vc} =  d+1$
 
 
 

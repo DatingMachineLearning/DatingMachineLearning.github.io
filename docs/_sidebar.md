@@ -2,7 +2,7 @@
 - [**Python 入门系列**](python/_sidebar.md)
 - [ML0. 机器学习-常用术语.md](ML0.机器学习-常用术语.md)
 - [ML0. 机器学习-可学性基础.md](ML0.机器学习-可学性基础.md)
-- --- 
+- ---
 
 
 - [ML1. 机器学习入门](ML1.introduction-to-machine-learning.md)
@@ -12,6 +12,6 @@
 - [ML5. 线性模型识别手写数字](ML5.handwritten-numeral-recognition-based-on-linear-model.md)
 - [ML6. 层层递进，决策树模型](ML6.step-by-step-decision-tree-model.md)
 - [ML7. ID3, C4.5 和 CART 算法](ML7.ID3,C4.5-and-CART.md)
-
-- [ML8. 感知机与神经网络](ML8.Perceptron&NeuralNetwork.md)
+- [ML8. 感知机](ML8.Perceptron&NeuralNetwork.md)
+- [ML9. 神经网络](ML9.NeuralNetwork.md)
 

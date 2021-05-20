@@ -1,5 +1,7 @@
 # ID3, C4.5 和 CART 算法
 
+![visitor badge](https://visitor-badge.glitch.me/badge?page_id=xrandx.Dating-with-Machine-Learning)
+
 <img src="https://gitee.com/xrandx/blog-figurebed/raw/master/img/20210328170928.svg" alt="决策树" style="zoom: 67%;" />
 
 ## ID3 算法

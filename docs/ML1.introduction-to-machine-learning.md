@@ -1,5 +1,7 @@
 # 机器学习入门
 
+![visitor badge](https://visitor-badge.glitch.me/badge?page_id=xrandx.Dating-with-Machine-Learning)
+
 ## 课程纲要
 
 ### 什么是机器学习？
@@ -86,7 +88,6 @@ E. 计算地球运行的轨道
 ### 问答题
 
 #### 亚里士多德提出「物体下落的快慢是由物体本身的重量决定的」，他的错误出现在数据分析的哪一步？
-
 
 
 

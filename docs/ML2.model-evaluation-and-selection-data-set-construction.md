@@ -1,5 +1,7 @@
 # 模型评估与选择（数据集构建）
 
+![visitor badge](https://visitor-badge.glitch.me/badge?page_id=xrandx.Dating-with-Machine-Learning)
+
 ## 机器学习过程
 
 回顾高一的运动学实验，探索运动学公式:

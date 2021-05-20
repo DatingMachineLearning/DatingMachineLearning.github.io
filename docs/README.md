@@ -14,7 +14,7 @@
 
 这个春天一起机器学习 —— Python 数据分析课。
 
-是 [Dating-with-python-this-winter](https://github.com/xrandx/Dating-with-python-this-winter) 的后续。
+是 [Dating-with-python-this-winter](https://github.com/xrandx/Dating-with-python-this-winter) 的整合。
 
 
 ## 机器学习与数据分析
@@ -70,9 +70,11 @@
 
 ## 资源
 
-绘图库 matplotlib 速查表：
+- 绘图库 matplotlib 速查表： https://github.com/matplotlib/cheatsheets
 
-https://github.com/matplotlib/cheatsheets
+- [Introduction · sklearn 中文文档 (apachecn.org)](https://sklearn.apachecn.org/)
+- [API Reference — scikit-learn 0.24.2 documentation](https://scikit-learn.org/stable/modules/classes.html)
+- 
 
 
 

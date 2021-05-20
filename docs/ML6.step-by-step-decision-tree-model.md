@@ -1,5 +1,7 @@
 #  层层递进，决策树模型
 
+![visitor badge](https://visitor-badge.glitch.me/badge?page_id=xrandx.Dating-with-Machine-Learning)
+
 ## 结构
 
 - 决策树原理
@@ -188,5 +190,4 @@ $$
 $$
 H(D_1) = 0.88 - 0.77 = 0.11
 $$
-
 
