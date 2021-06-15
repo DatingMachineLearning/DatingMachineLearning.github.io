@@ -189,7 +189,99 @@ $$
 
 #### 1.5.3 反向传播
 
-如果全为0就不能算梯度了，随机初始化 w
+把误差从后往前传，然后逐个更新每层的参数 W
+
+$$
+E_{in}(\hat{\bf y}, {\bf y}) = L(g[{\bf W}^{[2] \top} g({\bf W}^{[1] \top} {\bf X})], {\bf y})
+$$
+
+首先，为了了解整个反向传播的过程。假设我们的 W 只有一行一列，也就是每层只有一个神经元，先看单个 w 怎么求然后再推广。
+
+对 w2 的偏导：
+$$
+\begin{aligned}
+\frac{\partial E_{in}}{\partial {w}^{[2]}}  
+&= \frac{\partial L}{\partial g} \cdot\frac{\partial g}{\partial {z}^{[2]}} \frac{\partial {z}^{[2]}}{\partial { w}^{[2]}}  \\ \\
+&= \frac{\partial L}{\partial z^{[2]}} \cdot   \frac{\partial {z}^{[2]}}{\partial { w}^{[2]}}
+\end{aligned}
+$$
+
+对 w1 的偏导：
+
+$$
+\begin{aligned}
+\frac{\partial E_{in}}{\partial { w}^{[1]}} 
+
+&= \frac{\partial L}{\partial g} \cdot \frac{\partial g}{\partial z^{[2]}} \frac{\partial {z}^{[2]}}{\partial { a}^{[1]}} 
+\cdot 
+\frac{\partial g}{\partial z^{[1]}} \frac{\partial {z}^{[1]}}{\partial{w}^{[1]}}
+\\ \\
+&=  \frac{\partial L}{\partial z^{[1]}} \cdot   \frac{\partial {z}^{[1]}}{\partial{w}^{[1]}}
+\end{aligned}
+$$
+如果假设 有 n 层神经网络对 $w^{[i]}$ 求偏导，那么肯定是：
+$$
+\begin{aligned}
+\frac{\partial E_{in}}{\partial { w}^{[0]}} 
+
+&= \frac{\partial L}{\partial g} \cdot \frac{\partial g}{\partial z^{[n]}} \frac{\partial {z}^{[n]}}{\partial { a}^{[n - 1]}} 
+\cdot 
+\frac{\partial g}{\partial z^{[n - 1]}} \frac{\partial {z}^{[n - 1]}}{\partial{a}^{[0]}} 
+\cdots
+\frac{\partial g}{\partial z^{[i]}} \frac{\partial {z}^{[i]}}{\partial{w}^{[i]}} \\
+\\
+&= \frac{\partial L}{\partial z^{[i]}}  \cdot   \frac{\partial {z}^{[i]}}{\partial{w}^{[i]}}  \\
+
+\end{aligned}
+$$
+因为有
+$$
+\begin{aligned}
+z^{[i]} &= w^{[i]}a^{[i - 1]}  \\\\
+\Rightarrow \frac{\partial z^{[i]}}{\partial w^{[i]}} &= a^{[i - 1]} 
+\end{aligned} 
+$$
+（结论）也就是说
+$$
+\begin{aligned}
+
+\frac{\partial E_{in}}{\partial { w}^{[i]}}  
+&= \frac{\partial L}{\partial z^{[i]}}  \cdot   \frac{\partial {z}^{[i]}}{\partial{w}^{[i]}} \\\\
+&= \frac{\partial L}{\partial z^{[i]}}  \cdot a^{[i -1]} 
+
+\end{aligned}  \tag 1
+$$
+（结论）我们又知道，L 关于 z 偏导有递推式：
+$$
+\begin{align}
+
+\frac{\partial L}{\partial z^{[i]}} 
+&= \frac{\partial L}{\partial a^{[i]}} \frac{\partial g}{\partial z^{[i]}}   \tag 2
+\end{align}
+$$
+（结论）容易知道，L 关于 a 的偏导：
+$$
+\begin{aligned}
+
+\frac{\partial L}{\partial a^{[i]}} 
+&= \frac{\partial L}{\partial z^{[i + 1]}} \frac{\partial  z^{[i + 1]}}{\partial a^{[i]}} \\\\
+&= \frac{\partial L}{\partial z^{[i + 1]}} w^{[i + 1]}
+
+\end{aligned} \tag 3
+$$
+$\mathrm d Z$ 可以看作 $\frac{\partial L}{\partial z}$ 的矩阵形式，对于**矩阵微积分**而言就有：
+$$
+\begin{align}
+\mathrm{d} W^{[i]} &= \frac{1}{m} \mathrm{d} Z^{[i]} \cdot A^{[i]} \tag 1 \\  \\
+\mathrm{d} Z^{[i]} &=  \mathrm{d} A^{[i]} * \mathrm{d} g   \tag 2 \\\\
+\mathrm{d} A^{[i-1]} &=   W^{[i ]} *  \mathrm{d}Z^{[i]} \tag 3 \\
+\end{align}
+$$
+可参考：
+
+[机器学习中的矩阵向量求导(一) 求导定义与求导布局 - 刘建平Pinard - 博客园](https://www.cnblogs.com/pinard/p/10750718.html)
+
+[机器学习中的矩阵向量求导(五) 矩阵对矩阵的求导 - 刘建平Pinard - 博客园](https://www.cnblogs.com/pinard/p/10930902.html)
 
 
 
@@ -500,83 +592,11 @@ $\text{until }$ 达到指定条件
 
 假设实例 $\bf x_i$ 的某一个属性满足伯努利分布（二项分布），也就是
 $$
-{\bf x}_i^j
+{\bf x}_i^j \sim B 
 $$
 
 
 
-### 5.2 反向传播
-
-$$
-E_{in}(\hat{\bf y}, {\bf y}) = L(g[{\bf W}^{[2] \top} g({\bf W}^{[1] \top} {\bf X})], {\bf y})
-$$
-
-先看单个 w 怎么求，对 w2 的偏导
-
-$$
-\begin{aligned}
-\frac{\partial E_{in}}{\partial {w}^{[2]}}  
-&= \frac{\partial L}{\partial g} \cdot\frac{\partial g}{\partial {z}^{[2]}} \frac{\partial {z}^{[2]}}{\partial { w}^{[1]}}  \\
-&= \frac{\partial L}{\partial z^{[2]}} \cdot   \frac{\partial {z}^{[2]}}{\partial { w}^{[1]}}
-\end{aligned}
-$$
-
-对 w1 的偏导
-
-$$
-\begin{aligned}
-\frac{\partial E_{in}}{\partial { w}^{[1]}} 
-
-&= \frac{\partial L}{\partial g} \cdot \frac{\partial g}{\partial z^{[2]}} \frac{\partial {z}^{[2]}}{\partial { a}^{[1]}} 
-\cdot 
-\frac{\partial g}{\partial z^{[1]}} \frac{\partial {z}^{[1]}}{\partial{w}^{[1]}}
-\\
-&=  \frac{\partial L}{\partial z^{[1]}} \cdot   \frac{\partial {z}^{[1]}}{\partial{w}^{[1]}}
-\end{aligned}
-$$
-假设有第 0 层
-$$
-\begin{aligned}
-\frac{\partial E_{in}}{\partial { w}^{[0]}} 
-
-&= \frac{\partial L}{\partial g} \cdot \frac{\partial g}{\partial z^{[2]}} \frac{\partial {z}^{[2]}}{\partial { a}^{[1]}} 
-\cdot 
-\frac{\partial g}{\partial z^{[1]}} \frac{\partial {z}^{[1]}}{\partial{a}^{[0]}} 
-\cdot  
-\frac{\partial g}{\partial z^{[0]}} \frac{\partial {z}^{[0]}}{\partial{w}^{[0]}} \\
-
-&= \frac{\partial L}{\partial z^{[0]}}  \cdot   \frac{\partial {z}^{[0]}}{\partial{w}^{[0]}}  \\
-
-\end{aligned}
-$$
-也就是：
-$$
-\frac{\partial E_{in}}{\partial { w}^{[i]}}  = \frac{\partial L}{\partial z^{[i]}}  \cdot   \frac{\partial {z}^{[i]}}{\partial{w}^{[i]}}  = \frac{\partial L}{\partial z^{[i]}}  \cdot a^{[i -1]}\\
-$$
-对 z 有递推式：
-$$
-\begin{aligned}
-
-\frac{\partial L}{\partial z^{[i]}} 
-&= \frac{\partial L}{\partial a^{[i]}} \frac{\partial g}{\partial z^{[i]}} 
-\end{aligned}
-$$
-关于 a 的偏导：
-$$
-\begin{aligned}
-
-\frac{\partial L}{\partial a^{[i]}} 
-&= \frac{\partial L}{\partial z^{[i + 1]}} \frac{\partial  z^{[i + 1]}}{\partial a^{[i]}} \\
-&= \frac{\partial L}{\partial z^{[i + 1]}} w^{[i + 1]}
-
-\end{aligned}
-$$
-对于矩阵而言
-$$
-\mathrm{d} Z^{[i]} =  \mathrm{d} A^{[i]} * \mathrm{d} g \\
-\mathrm{d} W^{[i]} = \frac{1}{m} \mathrm{d} Z^{[i]} \cdot A^{[i]}\\
-\mathrm{d} A^{[i-1]} =   W^{[i ]} *  \mathrm{d}Z^{[i]} \\
-$$
 
 
 ---
