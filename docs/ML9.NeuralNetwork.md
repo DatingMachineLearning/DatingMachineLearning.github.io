@@ -93,7 +93,7 @@ XOR(x_1,x_2) = OR(AND(-x_1, x_2), AND(x_1, -x_2))
 $$
 或者熟悉的数学形式是：
 $$
-x_1 \oplus x_2 = (\neg x_1 \and x_2)\or (x_1\and \neg x_2)
+x_1 \oplus x_2 = (\neg x_1 \land x_2) \lor (x_1 \land \neg x_2)
 $$
 他的计算图是：
 
@@ -253,11 +253,11 @@ $$
 $$
 （结论）我们又知道，L 关于 z 偏导有递推式：
 $$
-\begin{align}
+\begin{aligned}
 
 \frac{\partial L}{\partial z^{[i]}} 
-&= \frac{\partial L}{\partial a^{[i]}} \frac{\partial g}{\partial z^{[i]}}   \tag 2
-\end{align}
+&= \frac{\partial L}{\partial a^{[i]}} \frac{\partial g}{\partial z^{[i]}}  
+\end{aligned} \tag{2}
 $$
 （结论）容易知道，L 关于 a 的偏导：
 $$
@@ -267,15 +267,16 @@ $$
 &= \frac{\partial L}{\partial z^{[i + 1]}} \frac{\partial  z^{[i + 1]}}{\partial a^{[i]}} \\\\
 &= \frac{\partial L}{\partial z^{[i + 1]}} w^{[i + 1]}
 
-\end{aligned} \tag 3
+\end{aligned} \tag{3}
 $$
 $\mathrm d Z$ 可以看作 $\frac{\partial L}{\partial z}$ 的矩阵形式，对于**矩阵微积分**而言就有：
 $$
-\begin{align}
-\mathrm{d} W^{[i]} &= \frac{1}{m} \mathrm{d} Z^{[i]} \cdot A^{[i]} \tag 1 \\  \\
-\mathrm{d} Z^{[i]} &=  \mathrm{d} A^{[i]} * \mathrm{d} g   \tag 2 \\\\
-\mathrm{d} A^{[i-1]} &=   W^{[i ]} *  \mathrm{d}Z^{[i]} \tag 3 \\
-\end{align}
+\begin{aligned}
+\mathrm{d} Z^{[i]} &=  \mathrm{d} A^{[i]} * \mathrm{d} g    \\ \\
+\mathrm{d} W^{[i]} &= \frac{1}{m} \mathrm{d} Z^{[i]} \cdot A^{[i]}  \\   \\
+\mathrm{d} A^{[i-1]} &=   W^{[i ]} *  \mathrm{d}Z^{[i]}   \\ \\
+\end{aligned}
+\tag{1, 2, 3}
 $$
 可参考：
 
@@ -375,6 +376,21 @@ $\text{until }$ 达到指定条件
 
 
 ## 4 用 numpy 实现神经网络
+
+接下来我们利用全连接的神经网络来识别手写数字(MNIST)，只训练一个二元分类器，判断是否是某个数字。
+
+MNIST 数据集每张图片有 784 个像素，用 784\*10, 10\*10, 10\*1 作为网络结构。
+
+![Screenshot 2021-06-20 at 18-05-39 NN SVG](https://gitee.com/xrandx/blog-figurebed/raw/master/img/20210624123220.png)
+$$
+\begin{aligned}
+\mathrm{d} Z^{[i]} &=  \mathrm{d} A^{[i]} * \mathrm{d} g    \\ \\
+\mathrm{d} W^{[i]} &= \frac{1}{m} \mathrm{d} Z^{[i]} \cdot A^{[i]}  \\   \\
+\mathrm{d} A^{[i-1]} &=   W^{[i ]} *  \mathrm{d}Z^{[i]}   \\ \\
+\end{aligned}
+\tag{1, 2, 3}
+$$
+
 
  ```python
  import joblib
