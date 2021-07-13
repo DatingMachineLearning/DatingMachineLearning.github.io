@@ -14,4 +14,5 @@
 - [ML7. ID3, C4.5 和 CART 算法](ML7.ID3,C4.5-and-CART.md)
 - [ML8. 感知机](ML8.Perceptron&NeuralNetwork.md)
 - [ML9. 神经网络](ML9.NeuralNetwork.md)
+- [**ML10. 神经网络进阶**](NN_optimization/_sidebar.md)
 

@@ -2,30 +2,9 @@
 
 ![visitor badge](https://visitor-badge.glitch.me/badge?page_id=xrandx.Dating-with-Machine-Learning)
 
+这个春天一起机器学习 —— Python 数据分析课。是 [Dating-with-python-this-winter](https://github.com/xrandx/Dating-with-python-this-winter) 的整合。
 
-> 正在从之前的仓库中迁移！
->
-> https://github.com/xrandx/Dating-with-python-this-winter
->
-> https://github.com/xrandx/Data-analysis-for-python
-
----
-
-
-这个春天一起机器学习 —— Python 数据分析课。
-
-是 [Dating-with-python-this-winter](https://github.com/xrandx/Dating-with-python-this-winter) 的整合。
-
-
-## 机器学习与数据分析
-
-### 目标
-
-计划总共 14 周，每周两节理论课，
-
-学会机器学习算法基本思想，为模型选择恰当的假设，编写机器学习代码。
-
-前置条件：学过概率统计、线性代数。
+前置条件：学过概率统计、线性代数。目标：学会机器学习算法基本思想，为模型选择恰当的假设，编写机器学习代码。
 
 ### 课程表
 
@@ -33,20 +12,18 @@
 
 [All Cheat Sheets](https://github.com/xrandx/Dating-with-Machine-Learning/blob/master/All%20Cheat%20Sheets.pdf) 是几个著名数据分析框架的“作弊表”，有些代码不会写的可以看看就上手。
 
-| 课节 | 文档和视频                                                   | 直播时间(20:00) |
-| ---- | ------------------------------------------------------------ | --------------- |
-| 1    | [ML1. 机器学习入门](http://benearyou.com/introduction-to-machine-learning/) \| [知乎](https://zhuanlan.zhihu.com/p/354848196)\| [bilibili](https://www.bilibili.com/video/BV1LZ4y1P7gB/) | 星期三          |
-| 2    | [ML2. 模型评估与选择（数据集构建）](http://benearyou.com/model-evaluation-and-selection-data-set-construction/) \| [知乎](https://zhuanlan.zhihu.com/p/356417310)\| [bilibili](https://www.bilibili.com/video/BV1bz4y117Nq/) | 星期六          |
-| 3    | [ML3. 线性模型基础](http://benearyou.com/basic-of-linear-model/) \| [知乎](https://zhuanlan.zhihu.com/p/356418555) \| [bilibili](https://www.bilibili.com/video/BV1WN411Q7SC) | 星期三          |
-| 4    | [ML4. 线性回归实验]( https://github.com/xrandx/Dating-with-Machine-Learning/blob/master/ML4.%20exercise%20by%20xpzoumeng.zip) \| [ML4. 对数几率回归与广义线性模型](https://github.com/xrandx/Dating-with-Machine-Learning/blob/master/ML4.%20%E5%AF%B9%E6%95%B0%E5%87%A0%E7%8E%87%E5%9B%9E%E5%BD%92%E4%B8%8E%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B.md) \| [知乎](https://zhuanlan.zhihu.com/p/361717231)\| [bilibili](https://www.bilibili.com/video/BV15v411a7xW) | 星期一          |
-| 5    | [ML5. 线性模型识别手写数字](http://benearyou.com/handwritten-numeral-recognition-based-on-linear-model/) \| [知乎](https://zhuanlan.zhihu.com/p/361716324) \| [bilibili](https://www.bilibili.com/video/BV1P54y1h7CY) | 星期三          |
-| 6    | [ML6. 层层递进，决策树模型](http://benearyou.com/step-by-step-decision-tree-model/) \| [知乎](https://zhuanlan.zhihu.com/p/361717445) \| bilibili | 星期三          |
-| 7    | [ML7. ID3, C4.5 和 CART 算法]()                              | 星期一          |
-| 8    | ML.8 感知机和神经网络                                        | 星期五          |
-
-
-
-
+| 文档和视频                                                   |
+| ------------------------------------------------------------ |
+| [ML1. 机器学习入门](http://benearyou.com/introduction-to-machine-learning/) \| [知乎](https://zhuanlan.zhihu.com/p/354848196)\| [bilibili](https://www.bilibili.com/video/BV1LZ4y1P7gB/) |
+| [ML2. 模型评估与选择（数据集构建）](http://benearyou.com/model-evaluation-and-selection-data-set-construction/) \| [知乎](https://zhuanlan.zhihu.com/p/356417310)\| [bilibili](https://www.bilibili.com/video/BV1bz4y117Nq/) |
+| [ML3. 线性模型基础](http://benearyou.com/basic-of-linear-model/) \| [知乎](https://zhuanlan.zhihu.com/p/356418555) \| [bilibili](https://www.bilibili.com/video/BV1WN411Q7SC) |
+| [ML4. 线性回归实验]( https://github.com/xrandx/Dating-with-Machine-Learning/blob/master/ML4.%20exercise%20by%20xpzoumeng.zip) \| [ML4. 对数几率回归与广义线性模型](https://github.com/xrandx/Dating-with-Machine-Learning/blob/master/ML4.%20%E5%AF%B9%E6%95%B0%E5%87%A0%E7%8E%87%E5%9B%9E%E5%BD%92%E4%B8%8E%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B.md) \| [知乎](https://zhuanlan.zhihu.com/p/361717231)\| [bilibili](https://www.bilibili.com/video/BV15v411a7xW) |
+| [ML5. 线性模型识别手写数字](http://benearyou.com/handwritten-numeral-recognition-based-on-linear-model/) \| [知乎](https://zhuanlan.zhihu.com/p/361716324) \| [bilibili](https://www.bilibili.com/video/BV1P54y1h7CY) |
+| [ML6. 层层递进，决策树模型](ML6.step-by-step-decision-tree-model.md) \| [知乎](https://zhuanlan.zhihu.com/p/361717445) \| bilibili |
+| [ML7. ID3, C4.5 和 CART 算法](ML7.ID3,C4.5-and-CART.md)      |
+| [ML.8 感知机](ML8.Perceptron.md)                             |
+| [ML.9 神经网络](ML9.NeuralNetwork.md)                        |
+| [**ML10. 神经网络进阶**](NN_optimization/_sidebar.md)        |
 
 
 ### 课程结构
@@ -81,12 +58,18 @@
 
 ### 参考书目
 
-"Learning from Data"
-
-《统计学习方法》李航
-
-《机器学习》周志华（西瓜书）以及[《如何使用本书》](https://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/MLbook2016.htm)
-
-[《南瓜书PumpkinBook》](https://datawhalechina.github.io/pumpkin-book/#/) 辅助西瓜书
-
-《机器学习实战：基于Scikit-Learn、Keras和 TensorFlow（原书第2版）》
+> "Learning from Data"
+>
+> 深度学习，吴恩达
+>
+> 《统计学习方法》李航
+>
+> 《机器学习》周志华（西瓜书）以及[《如何使用本书》](https://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/MLbook2016.htm)
+>
+> [PumpkinBook](https://datawhalechina.github.io/pumpkin-book/#/) 辅助西瓜书
+>
+> 《机器学习实战：基于Scikit-Learn、Keras和 TensorFlow（原书第2版）》
+>
+> https://github.com/xrandx/Dating-with-python-this-winter
+>
+> https://github.com/xrandx/Data-analysis-for-python
