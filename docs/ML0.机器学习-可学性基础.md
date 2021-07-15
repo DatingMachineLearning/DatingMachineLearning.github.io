@@ -1,4 +1,4 @@
-# 机器学习的科学性
+# 机器学习的可学性
 
 ![visitor badge](https://visitor-badge.glitch.me/badge?page_id=xrandx.Dating-with-Machine-Learning)
 
