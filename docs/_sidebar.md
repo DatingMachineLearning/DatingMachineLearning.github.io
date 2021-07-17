@@ -1,10 +1,7 @@
 - [前言](README.md)
 - [**Python 入门系列**](python/_sidebar.md)
-- [0. 机器学习-常用术语.md](ML0.机器学习-常用术语.md)
-- [0. 机器学习-可学性基础.md](ML0.机器学习-可学性基础.md)
-- ---
-
-
+- [0. 机器学习-常用术语](ML0.机器学习-常用术语.md)
+- [0. 机器学习-可学性基础](ML0.机器学习-可学性基础.md)
 - [1. 机器学习入门](ML1.introduction-to-machine-learning.md)
 - [2. 模型评估与选择（数据集构建）](ML2.model-evaluation-and-selection-data-set-construction.md)
 - [3. 线性模型基础](ML3.basic-of-linear-model.md)
@@ -15,4 +12,3 @@
 - [8. 感知机](ML8.Perceptron.md)
 - [9. 神经网络](ML9.NeuralNetwork.md)
 - [**10. 神经网络进阶**](NN_optimization/_sidebar.md)
-

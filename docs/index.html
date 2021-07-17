@@ -8,26 +8,68 @@
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css">
+  <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css"> -->
+  <!-- <script src="//cdn.jsdelivr.net/npm/docsify-themeable@0"></script> -->
 
-  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css"> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">
   <link href="css/font.css" rel="stylesheet">
   <link rel="stylesheet" href="css/theme-custom.css">
+  <style>
+    article img {
+      text-align: center;
+    }
+  </style>
+  <style>
+    :root {
+      --base-font-size: 14px;
+      /* --theme-hue: 207; */
+      --theme-saturation: 44%;
+      --theme-lightness: 49%;
+      --cover-background-color: hsl(var(--theme-hue), var(--theme-saturation), 60%);
+      --theme-color: #00a88e;
+      --base-color: #12538a;
+      --heading-color: #071a2a;
+      --code-inline-color: #05111b;
+      --code-theme-text: #071420;
+      --code-inline-background: #f0f0f0;
+      --content-max-width: 50em;
+
+      /* Animations and transitions */
+      --duration-slow: 1s;
+      --duration-medium: 0.5s;
+      --duration-fast: 0.25s;
+
+      /* Font size */
+      --font-size-xxxl: var(--modular-scale-5);
+      --font-size-xxl: var(--modular-scale-4);
+      --font-size-xl: var(--modular-scale-3);
+      --font-size-l: var(--modular-scale-2);
+      --font-size-m: var(--modular-scale-1);
+      --font-size-s: var(--modular-scale--1);
+      --font-size-xs: var(--modular-scale--2);
+    }
+  </style>
 </head>
 
 <body>
   <div id="app"></div>
   <script>
     window.$docsify = {
+      themeable: {
+        readyTransition: true, // default
+        responsiveTables: true  // default
+      },
       subMaxLevel: 6,
+      themeColor: "#00a88e",//'#108c3e',//'rgb(51,133,255)',//'rgb(0,190,6)',//'#e8186c',//定义主题色，默认绿色
+
       markdown: {
         renderer: {
           image: function (href, title, text) {
             // 按照原来的渲染 img
-            var image_html = this.origin.image.apply(this, arguments)
+            var image_html = this.origin.image.apply(this, arguments);
             // 用 figure 包一下图片，实现居中
             return '<figure>' + image_html + '<figcaption>' + text +
-              '</figcaption></figure>'
+              '</figcaption></figure>';
           }
         }
       },
@@ -63,6 +105,14 @@
       routerMode: 'hash', // default: 'hash'
       themeColor: '#0c7dbe',
       loadSidebar: true,
+
+      plugins: [
+        function (hook, vm) { //让图片居中显示
+          hook.beforeEach(function (html) {
+            return html.replace(/<p><img/g, '<p style="text-align:center"><img') //图片居中
+              .replace(/class="mermaid"/g, 'class="mermaid" style="text-align:center"') //让使用mermaid画流程图居中
+          });
+        }],
     }
 
   </script>
@@ -71,21 +121,25 @@
   <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-python.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
 
+  <script src="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>
+
+
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
   <!-- CDN files for docsify-katex -->
   <script src="//cdn.jsdelivr.net/npm/docsify-katex@latest/dist/docsify-katex.js"></script>
-  <!-- or <script src="//cdn.jsdelivr.net/gh/upupming/docsify-katex@latest/dist/docsify-katex.js"></script> -->
-  <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" /> -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css">
   <script src="//unpkg.com/mermaid/dist/mermaid.js"></script>
   <script src="//unpkg.com/docsify-mermaid@latest/dist/docsify-mermaid.js">
-  < script > mermaid.initialize({ startOnLoad: true });</script>
-  <style>
-    figure {
-      text-align: center
-    }
-  </style>
+
+      < script > mermaid.initialize({ startOnLoad: true });</script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">
+
+
+  <script src="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/js/docsify-themeable.min.js"></script>
+
+
 </body>
 
 </html>

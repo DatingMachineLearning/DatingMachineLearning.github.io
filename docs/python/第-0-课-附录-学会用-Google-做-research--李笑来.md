@@ -22,29 +22,46 @@ Google的界面非常简洁，很多人对此相当地推崇。但过分简洁�
 
 还有一个运用相当灵活、经常带来意外收获的符号是波浪号（~）。把波浪号（～）加在某个单词前面，是在告诉Google：除了给出的关键字之外，还要搜索与波浪号（～）后面的那个单词相关的词汇。比如，搜索【the importance of ~censorship】的结果中包含着“the importance of censorship”，也包含着与censorship相关的另外一个词汇“propaganda”——“the importance of propaganda”。
 
-再学一个在指定网站中搜索的语法“site:”。比如，【“the purpose of education” site:[http://www.time.com/](https://www.douban.com/link2/?url=http%3A%2F%2Fwww.time.com%2F&link2key=6d0a4cfc99)】就是要求Google只返回[http://www.time.com](https://www.douban.com/link2/?url=http%3A%2F%2Fwww.time.com&link2key=6d0a4cfc99)这个网站里的含有“the purpose of education”的文章。
+再学一个在指定网站中搜索的语法“site:”。比如，【“the purpose of education” site:[http://www.time.com/](https://www.time.com) 】就是要求Google只返回[http://www.time.com](https://www.time.com)
+这个网站里的含有“the purpose of education”的文章。
 
 2006年，Google推出了“co-op”服务（自定义搜索引擎）。其中最常用的功能之一就是可以指定Google搜索一个或者若干个指定的网站——相当于前面提到的Google语法“site:”的扩展。比如，我就为我的学生定制了一个Google cse（customized search engine）——“Search News Media”（在我的网站的导航栏上，有一个“自定义搜索引擎”，点进去也会看到这个cse）。不妨看看在这个自定义搜索引擎上搜索【censorship】返回的结果（GRE/SAT的作文考试中，都有很多关于“censorship”的作文题）。这个cse只搜索以下10个网站：
 
-[http://www.economist.com/](https://www.douban.com/link2/?url=http%3A%2F%2Fwww.economist.com%2F&link2key=6d0a4cfc99)
-[http://www.cnn.com/](https://www.douban.com/link2/?url=http%3A%2F%2Fwww.cnn.com%2F&link2key=6d0a4cfc99)
-[http://www.time.com/](https://www.douban.com/link2/?url=http%3A%2F%2Fwww.time.com%2F&link2key=6d0a4cfc99)
-[http://nytimes.com/](https://www.douban.com/link2/?url=http%3A%2F%2Fnytimes.com%2F&link2key=6d0a4cfc99)
-[http://www.washingtonpost.com/](https://www.douban.com/link2/?url=http%3A%2F%2Fwww.washingtonpost.com%2F&link2key=6d0a4cfc99)
-[http://www.usnews.com/](https://www.douban.com/link2/?url=http%3A%2F%2Fwww.usnews.com%2F&link2key=6d0a4cfc99)
-[http://usatoday.com/](https://www.douban.com/link2/?url=http%3A%2F%2Fusatoday.com%2F&link2key=6d0a4cfc99)
-[http://www.reuters.com/](https://www.douban.com/link2/?url=http%3A%2F%2Fwww.reuters.com%2F&link2key=6d0a4cfc99)
-[http://www.bbc.co.uk/](https://www.douban.com/link2/?url=http%3A%2F%2Fwww.bbc.co.uk%2F&link2key=6d0a4cfc99)
-[http://en.wikinews.org/](https://www.douban.com/link2/?url=http%3A%2F%2Fen.wikinews.org%2F&link2key=6d0a4cfc99)
+[http://www.economist.com/](https://www.economist.com)
+
+[http://www.cnn.com/](https://www.cnn.com)
+
+[http://www.time.com/](https://www.time.com)
+
+[http://nytimes.com/](https://nytimes.com)
+
+[http://www.washingtonpost.com/](https://www.washingtonpost.com)
+
+[http://www.usnews.com/](https://www.usnews.com)
+[http://usatoday.com/](https://usatoday.com)
+
+[http://www.reuters.com/](https://www.reuters.com)
+
+[http://www.bbc.co.uk/](https://www.bbc.co.uk)
+
+[http://en.wikinews.org/](https://en.wikinews.org)
+
+
 
 我还给学生定制过一个专门搜索百科类网站的cse：“Encyclopedia Search”。这个cse只搜索以下7个网站：
 
-[http://en.wikipedia.org/](https://www.douban.com/link2/?url=http%3A%2F%2Fen.wikipedia.org%2F&link2key=6d0a4cfc99)
-[http://encarta.msn.com/](https://www.douban.com/link2/?url=http%3A%2F%2Fencarta.msn.com%2F&link2key=6d0a4cfc99)
-[http://knol.google.com/](https://www.douban.com/link2/?url=http%3A%2F%2Fknol.google.com%2F)
-[http://www.thecanadianencyclopedia.com/](https://www.douban.com/link2/?url=http%3A%2F%2Fwww.thecanadianencyclopedia.com%2F&link2key=6d0a4cfc99)
-[http://en.citizendium.org/](https://www.douban.com/link2/?url=http%3A%2F%2Fen.citizendium.org%2F&link2key=6d0a4cfc99)
-[http://www.bartleby.com/65/](https://www.douban.com/link2/?url=http%3A%2F%2Fwww.bartleby.com%2F65%2F&link2key=6d0a4cfc99)
-[http://www.eb.com/](https://www.douban.com/link2/?url=http%3A%2F%2Fwww.eb.com%2F&link2key=6d0a4cfc99)
+[http://en.wikipedia.org/](https://en.wikipedia.org)
+
+[http://encarta.msn.com/](https://encarta.msn.com)
+
+[http://knol.google.com/](https://knol.google.com)
+
+[http://www.thecanadianencyclopedia.com/](https://www.thecanadianencyclopedia.com)
+
+[http://en.citizendium.org/](https://en.citizendium.org)
+
+[http://www.bartleby.com/65/](https://www.bartleby.com)
+
+[http://www.eb.com/](https://www.eb.com)
 
 如果你是Google的注册用户（现在几乎人人都用gmail），那么你也可以定制类似的cse，并且可以与其他人分享。关于更复杂的应用，只能查看Google CSE的帮助文档了。
