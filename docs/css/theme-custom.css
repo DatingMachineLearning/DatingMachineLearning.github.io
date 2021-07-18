@@ -7,9 +7,9 @@
     --theme-color: #f00056;
     --base-color: #351a21;
     --heading-color: #9d2933;
-    --code-inline-color: #f00056;
-    --code-theme-text: #f00056;
-    --code-inline-background: #f00056;
+    --code-inline-color: #ee447f;
+    --code-theme-text: #e6175f;
+    --code-inline-background: #f7f7f7;
     /* --content-max-width: 60em; */
     /* Animations and transitions */
     --duration-slow: 1s;
