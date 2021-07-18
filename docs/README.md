@@ -6,57 +6,36 @@
 
 前置条件：学过概率统计、线性代数。目标：学会机器学习算法基本思想，为模型选择恰当的假设，编写机器学习代码。
 
-### 课程表
+## 课程表
 
-课程文档可以下载文件，用 Typora 在电脑打开。或者上知乎 [机器漫游指南](https://www.zhihu.com/column/c_1353447533394444289)。
+- 视频： [隋辨的个人空间_哔哩哔哩_Bilibili](https://space.bilibili.com/10002579/video)
 
-[All Cheat Sheets](https://github.com/xrandx/Dating-with-Machine-Learning/blob/master/All%20Cheat%20Sheets.pdf) 是几个著名数据分析框架的“作弊表”，有些代码不会写的可以看看就上手。
+- 知乎：[机器漫游指南 - 知乎](https://www.zhihu.com/column/c_1353447533394444289)
 
-| 文档和视频                                                   |
-| ------------------------------------------------------------ |
-| [ML1. 机器学习入门](http://benearyou.com/introduction-to-machine-learning/) \| [知乎](https://zhuanlan.zhihu.com/p/354848196)\| [bilibili](https://www.bilibili.com/video/BV1LZ4y1P7gB/) |
-| [ML2. 模型评估与选择（数据集构建）](http://benearyou.com/model-evaluation-and-selection-data-set-construction/) \| [知乎](https://zhuanlan.zhihu.com/p/356417310)\| [bilibili](https://www.bilibili.com/video/BV1bz4y117Nq/) |
-| [ML3. 线性模型基础](http://benearyou.com/basic-of-linear-model/) \| [知乎](https://zhuanlan.zhihu.com/p/356418555) \| [bilibili](https://www.bilibili.com/video/BV1WN411Q7SC) |
-| [ML4. 线性回归实验]( https://github.com/xrandx/Dating-with-Machine-Learning/blob/master/ML4.%20exercise%20by%20xpzoumeng.zip) \| [ML4. 对数几率回归与广义线性模型](https://github.com/xrandx/Dating-with-Machine-Learning/blob/master/ML4.%20%E5%AF%B9%E6%95%B0%E5%87%A0%E7%8E%87%E5%9B%9E%E5%BD%92%E4%B8%8E%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B.md) \| [知乎](https://zhuanlan.zhihu.com/p/361717231)\| [bilibili](https://www.bilibili.com/video/BV15v411a7xW) |
-| [ML5. 线性模型识别手写数字](http://benearyou.com/handwritten-numeral-recognition-based-on-linear-model/) \| [知乎](https://zhuanlan.zhihu.com/p/361716324) \| [bilibili](https://www.bilibili.com/video/BV1P54y1h7CY) |
-| [ML6. 层层递进，决策树模型](ML6.step-by-step-decision-tree-model.md) \| [知乎](https://zhuanlan.zhihu.com/p/361717445) \| bilibili |
-| [ML7. ID3, C4.5 和 CART 算法](ML7.ID3,C4.5-and-CART.md)      |
-| [ML.8 感知机](ML8.Perceptron.md)                             |
-| [ML.9 神经网络](ML9.NeuralNetwork.md)                        |
-| [**ML10. 神经网络进阶**](NN_optimization/_sidebar.md)        |
-
-
-### 课程结构
-
-1. 机器学习入门
-2. 模型评价与选择：
-   1. 经验误差与结构误差
-   2. 评价指标
-   3. 比较检验与假设检验
-3. 学习理论：频率派和贝叶斯派
-4. 学习理论：PAC 和 VC维
-5. 数据预处理方法
-6. 学习模型：
-   1. 最小二乘法线性回归——线性模型
-   2. KNN 算法
-   3. 决策树 
-   4. 支持向量机
-   5. 梯度提升与随机森林
-   6. 贝叶斯分类器
-   7. 马尔可夫随机场
+- 目录
+  - [**Python 入门系列**](python/_sidebar.md)
+  - [0. 机器学习-常用术语](ML0.机器学习-常用术语.md)
+  - [0. 机器学习-可学性基础](ML0.机器学习-可学性基础.md)
+  - [1. 机器学习入门](ML1.introduction-to-machine-learning.md)
+  - [2. 模型评估与选择（数据集构建）](ML2.model-evaluation-and-selection-data-set-construction.md)
+  - [3. 线性模型基础](ML3.basic-of-linear-model.md)
+  - [4. 对数几率回归和广义线性模型](ML4.logistic-regression-and-generalized-linear-model.md)
+  - [5. 线性模型识别手写数字](ML5.handwritten-numeral-recognition-based-on-linear-model.md)
+  - [6. 层层递进，决策树模型](ML6.step-by-step-decision-tree-model.md)
+  - [7. ID3, C4.5 和 CART 算法](ML7.ID3,C4.5-and-CART.md)
+  - [8. 感知机](ML8.Perceptron.md)
+  - [9. 神经网络](ML9.NeuralNetwork.md)
+  - [**10. 神经网络进阶**](NN_optimization/_sidebar.md)
 
 ## 资源
 
+- [All Cheat Sheets](https://github.com/xrandx/Dating-with-Machine-Learning/blob/master/All%20Cheat%20Sheets.pdf) 是几个著名数据分析框架的“作弊表”，有些代码不会写的可以看看就上手。
 - 绘图库 matplotlib 速查表： https://github.com/matplotlib/cheatsheets
-
 - [Introduction · sklearn 中文文档 (apachecn.org)](https://sklearn.apachecn.org/)
 - [API Reference — scikit-learn 0.24.2 documentation](https://scikit-learn.org/stable/modules/classes.html)
-- 
 
 
-
-
-### 参考书目
+## 参考
 
 > "Learning from Data"
 >

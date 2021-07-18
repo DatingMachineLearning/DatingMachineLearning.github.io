@@ -1,6 +1,28 @@
 :root {
-  --base-font-size: 16px;
-  --theme-color   : aliceblue;
+    --base-font-size: 15px;
+    /* --theme-hue: 207; */
+    /* --theme-saturation: 44%; */
+    /* --theme-lightness: 49%; */
+    --cover-background-color: hsl(var(--theme-hue), var(--theme-saturation), 60%);
+    --theme-color: #f00056;
+    --base-color: #351a21;
+    --heading-color: #9d2933;
+    --code-inline-color: #f00056;
+    --code-theme-text: #f00056;
+    --code-inline-background: #f00056;
+    /* --content-max-width: 60em; */
+    /* Animations and transitions */
+    --duration-slow: 1s;
+    --duration-medium: 0.5s;
+    --duration-fast: 0.25s;
+    /* Font size */
+    /* --font-size-xxxl: var(--modular-scale-5);
+    --font-size-xxl: var(--modular-scale-4);
+    --font-size-xl: var(--modular-scale-3);
+    --font-size-l: var(--modular-scale-2);
+    --font-size-m: var(--modular-scale-1);
+    --font-size-s: var(--modular-scale--1);
+    --font-size-xs: var(--modular-scale--2); */
 }
 
 section.cover .cover-main {
@@ -23,14 +45,15 @@ section.cover h1 .anchor span {
 
 section.cover h2 .anchor span {
     font-family: 'Lobster', cursive;
-    font-size: 24px;
+    /* font-size: 24px; */
     color: var(--theme-color);
 }
 
-section.cover .cover-main > p:last-child a .iconfont {
-    font-size: 1em;
-}
 
-.sidebar > h1 a {
+/* section.cover .cover-main>p:last-child a .iconfont {
+    font-size: 1em;
+} */
+
+.sidebar>h1 a {
     font-family: 'Lobster', cursive;
 }
