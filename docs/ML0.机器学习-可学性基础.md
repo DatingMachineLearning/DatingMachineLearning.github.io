@@ -298,9 +298,9 @@ $$
 
 （利用数学归纳法和递推关系证明）当 N=1 或者 K=1 时，显然成立。假设当 $N=N_0$ 时，  $B(N_0,K) \leq \sum\limits_{i=0}^{K-1} \left( \begin{array}{c}N_0 \\ i \end{array}\right)$ ，则当 $N=N_0 + 1$ 时:  
 $$
-\begin{align} B(N_0 +1, K) & \leq B(N_0, K) + B(N_0, K-1) \\ & \leq \sum\limits_{i=0}^{K-1} \left( \begin{array}{c}N_0 \\ i \end{array}\right) + \sum\limits_{i=0}^{K-2} \left( \begin{array}{c}N_0 \\ i \end{array}\right) \\ & \leq 1 + \sum\limits_{i=1}^{K-1} 
+\begin{aligned} B(N_0 +1, K) & \leq B(N_0, K) + B(N_0, K-1) \\ & \leq \sum\limits_{i=0}^{K-1} \left( \begin{array}{c}N_0 \\ i \end{array}\right) + \sum\limits_{i=0}^{K-2} \left( \begin{array}{c}N_0 \\ i \end{array}\right) \\ & \leq 1 + \sum\limits_{i=1}^{K-1} 
 
-\left( \left( \begin{array}{c}N_0\ \\ i \end{array} \right) + \left(\begin{array}{c}N_0\\i-1 \end{array}\right) \right) \\ & \leq 1 + \sum\limits_{i=1}^{K-1} \left( \begin{array}{c}N_0+1 \\ i \end{array} \right) \\ & \leq \sum\limits_{i=0}^{K-1}\left( \begin{array}{c}N_0+1 \\ i \end{array} \right) \end{align}
+\left( \left( \begin{array}{c}N_0\ \\ i \end{array} \right) + \left(\begin{array}{c}N_0\\i-1 \end{array}\right) \right) \\ & \leq 1 + \sum\limits_{i=1}^{K-1} \left( \begin{array}{c}N_0+1 \\ i \end{array} \right) \\ & \leq \sum\limits_{i=0}^{K-1}\left( \begin{array}{c}N_0+1 \\ i \end{array} \right) \end{aligned}
 $$
 得证:  
 $$
@@ -321,7 +321,7 @@ $$
 我们前面基本都在围绕这训练数据也就是 $\mathcal{D}$ 或者 $E_{in}$ 讨论，把 $\mathcal{H}$ 根据在 $\mathcal{D}$ 上的表现分门别类，这样 $E_{in}$ 就会是有限个，但是却忽略了每一个 $h$ 的 $E_{out}$  是不一样的，也就是说 $E_{out}(h)$ 是无穷多个的，所以说上述的不等式是不太严谨的，实际上的不等式是下面的
 
 $$
- \begin{align} \mathbb{P}[BAD] &= \mathbb{P}[\exists h \in \mathcal{H}\text{ s.t. } |E_{in}(h)-E_{out}(h)|\gt \epsilon] \\\ &\leq 4m_{\mathcal{H}}(2N)exp(-\frac{1}{8}\epsilon^2N) \end{align} 
+ \begin{aligned} \mathbb{P}[BAD] &= \mathbb{P}[\exists h \in \mathcal{H}\text{ s.t. } |E_{in}(h)-E_{out}(h)|\gt \epsilon] \\\ &\leq 4m_{\mathcal{H}}(2N)exp(-\frac{1}{8}\epsilon^2N) \end{aligned} 
 $$
 
 证明的主要原则是，如果某个 $E_{in}$ 与 $E_{out}$ 的差别很大时，那么我们重新找一份数据集 $D^{'}$ , 那么 $E_{in}^{'}$ 也会有很大的几率与 $E_{in}$ 差别很大。 具体证明还没搞太明白，先记下了。另外，上面的不等式就是 VC-bound。
@@ -337,7 +337,7 @@ $$
 下面我们看看VC维可以给我们带来什么信息。已知成长函数 $m_{\mathcal{H}} \leq N^{k-1}=N^{d_{vc}}$ ，然后代入上述的VC Bound:
 
 $$
-\begin{align*} \mathbb{P}[BAD] &= \mathbb{P}[\exists h \in \mathcal{H}\text{ s.t. } |E_{in}(h)-E_{out}(h)|\gt \epsilon] \\ &\leq 4m_{\mathcal{H}}(2N)exp(-\frac{1}{8}\epsilon^2N) \\ &= 4(2N)^{d_{vc}} exp(-\frac{1}{8}\epsilon^2N)\end{align*}
+\begin{aligned} \mathbb{P}[BAD] &= \mathbb{P}[\exists h \in \mathcal{H}\text{ s.t. } |E_{in}(h)-E_{out}(h)|\gt \epsilon] \\ &\leq 4m_{\mathcal{H}}(2N)exp(-\frac{1}{8}\epsilon^2N) \\ &= 4(2N)^{d_{vc}} exp(-\frac{1}{8}\epsilon^2N)\end{aligned}
 $$
 那么怎么样才可以说明机器学到了东西呢？有以下三点:
 

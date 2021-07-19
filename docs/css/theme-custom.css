@@ -1,16 +1,20 @@
 :root {
     --base-font-size: 15px;
-    /* --theme-hue: 207; */
-    /* --theme-saturation: 44%; */
-    /* --theme-lightness: 49%; */
-    --cover-background-color: hsl(var(--theme-hue), var(--theme-saturation), 60%);
-    --theme-color: #f00056;
+    --base-font-weight: normal;
     --base-color: #351a21;
+    --theme-hue: 207;
+    --theme-saturation: 44%;
+    --theme-lightness: 50%;
+    --cover-background-color: hsl(var(--theme-hue), var(--theme-saturation), 60%);
+    --theme-color: #9d2933;
     --heading-color: #9d2933;
-    --code-inline-color: #ee447f;
-    --code-theme-text: #e6175f;
+    --hr-border: 1px solid;
+    /* code font */
+    --code-font-size: 15px;
+    /* --code-inline-color: #ee447f;
+    --code-theme-text: #e6175f; */
     --code-inline-background: #f7f7f7;
-    /* --content-max-width: 60em; */
+    --content-max-width: 60em;
     /* Animations and transitions */
     --duration-slow: 1s;
     --duration-medium: 0.5s;
@@ -20,23 +24,43 @@
     --font-size-xxl: var(--modular-scale-4);
     --font-size-xl: var(--modular-scale-3);
     --font-size-l: var(--modular-scale-2);
-    --font-size-m: var(--modular-scale-1);
-    --font-size-s: var(--modular-scale--1);
+    --font-size-m: var(--modular-scale-2);
+    --font-size-s: var(--modular-scale--2);
     --font-size-xs: var(--modular-scale--2); */
+    --heading-h1-font-weight: bold;
+    --heading-h2-font-weight: bold;
+    --heading-h3-font-weight: bold;
+    --heading-h4-font-weight: bold;
+    --heading-h5-font-weight: bold;
+    /* Links */
+    --link-border-bottom: 2px;
+    --link-border-bottom--hover: 10px;
+    --link-text-decoration: none;
+    --link-color--hover: var(--theme-color);
+    --link-text-decoration--hover: none;
+    /* Sider */
+    --sidebar-nav-link-background-color--hover: #f1dae293;
+    /* --sidebar-nav-link-border-color--hover: #f00056; */
+    --sidebar-nav-link-color--active: var(--heading-color);
+    --sidebar-nav-link-color--hover: var(--theme-color);
+    --sidebar-nav-link-font-weight--hover: bold;
+    --sidebar-nav-link-text-decoration--active: none;
+    --sidebar-nav-link-text-decoration--hover: none;
 }
 
 section.cover .cover-main {
     z-index: 100;
 }
 
-section.cover.has-mask .mask {
+
+/* section.cover.has-mask .mask {
     background-color: #fff;
     opacity: .1!important;
     position: absolute;
     top: 0;
     height: 100%;
     width: 100%;
-}
+} */
 
 section.cover h1 .anchor span {
     font-family: 'Lobster', cursive;
@@ -45,7 +69,7 @@ section.cover h1 .anchor span {
 
 section.cover h2 .anchor span {
     font-family: 'Lobster', cursive;
-    /* font-size: 24px; */
+    font-size: 24px;
     color: var(--theme-color);
 }
 
