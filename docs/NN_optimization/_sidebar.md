@@ -6,3 +6,6 @@
 - [10.2.1 批量梯度下降及其优化器](NN_optimization/N2.1批量梯度下降及其优化器.md)
 - [10.2.2 常见的优化器](NN_optimization/N2.2常见的优化器.md)
 - [10.3.1 神经网络的超参数](NN_optimization/N3.1神经网络的超参数.md)
+
+- [10.3.2 Batch Normalization](N3.2Batch_Normalization.md)
+
