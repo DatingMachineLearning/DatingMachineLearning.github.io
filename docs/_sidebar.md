@@ -1,5 +1,5 @@
 - [前言](README.md)
-- [**Python 入门系列**](python/_sidebar.md)
+- [Python 入门系列 ◇](python/_sidebar.md)
 - [0. 机器学习-常用术语](ML0.机器学习-常用术语.md)
 - [0. 机器学习-可学性基础](ML0.机器学习-可学性基础.md)
 - [1. 机器学习入门](ML1.introduction-to-machine-learning.md)
@@ -11,8 +11,8 @@
 - [7. ID3, C4.5 和 CART 算法](ML7.ID3,C4.5-and-CART.md)
 - [8. 感知机](ML8.Perceptron.md)
 - [9. 神经网络](ML9.NeuralNetwork.md)
-- [**10. 神经网络进阶**](NN_optimization/_sidebar.md)
-- 自然语言处理
+- [10. 神经网络进阶 ◇](NN_optimization/_sidebar.md)
+- **自然语言处理 ◇** 
   - [0. 自然语言处理初步](NLP/0.自然语言处理初步.md)
   - [0.1 信息抽取问题](NLP/0.1信息抽取问题.md)
   - [1.1 文本预处理](NLP/1.1文本预处理.md)
