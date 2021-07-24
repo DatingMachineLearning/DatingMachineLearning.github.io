@@ -1,6 +1,7 @@
 # Dating Machine Learning 
 
 ![visitor badge](https://visitor-badge.glitch.me/badge?page_id=xrandx.Dating-with-Machine-Learning&color=9d2933)
+[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg?style=flat)](https://github.com/DatingMachineLearning/DatingMachineLearning.github.io/blob/main/LICENSE)
 
 这个春天一起机器学习 —— Python 数据分析课。是 [Dating-with-python-this-winter](https://github.com/xrandx/Dating-with-python-this-winter) 的整合。
 
