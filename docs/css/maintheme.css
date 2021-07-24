@@ -1,0 +1,66 @@
+/* App
+============================================================================= */
+:root {
+    /* Animations and transitions */
+    --duration-slow: 1s;
+    --duration-medium: 0.5s;
+    --duration-fast: 0.25s;
+    /* Font size */
+    --font-size-xxxl  : var(--modular-scale-5);
+    --font-size-xxl   : var(--modular-scale-4);
+    --font-size-xl    : var(--modular-scale-3);
+    --font-size-l     : var(--modular-scale-2);
+    --font-size-m     : var(--modular-scale-1);
+    --font-size-s     : var(--modular-scale--1);
+    --font-size-xs    : var(--modular-scale--1);
+
+
+    /* --heading-color: #9d2933; */
+    --hr-border: 2px solid;
+    --heading-margin                    : 0rem 0rem 1.5rem  ;
+    --heading-color: #bd434d;
+
+    --heading-h1-font-size              : var(--font-size-xxl);
+    --heading-h2-font-size              : var(--font-size-xl);
+    --heading-h3-font-size              : var(--font-size-l);
+    --heading-h4-font-size              : var(--font-size-m);
+    --heading-h5-font-size              : var(--font-size-s);
+    --heading-h6-font-size              : var(--font-size-xs);
+
+
+    /* Code */
+    --code-theme-background             : var(--mono-tint3);
+    --border-radius-s : ;
+    --code-theme-text                   : ;
+
+    --code-inline-background: #f7f7f7;
+    --code-inline-padding               : 0.125em 0.4em;
+
+    --code-font-family                  : Inconsolata, Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+    --code-font-size                    : calc(var(--font-size-m) * 0.95);
+    --code-font-weight                  : normal;
+    --code-tab-size                     : 4;
+
+    --content-max-width: 60em;
+    
+
+    --heading-h1-font-weight: bold;
+    --heading-h2-font-weight: bold;
+    --heading-h3-font-weight: bold;
+    --heading-h4-font-weight: bold;
+    --heading-h5-font-weight: bold;
+    
+    --base-color: #333333;
+    /* --base-line-height     : 1.8; */
+
+    /* Links */
+    --link-border-bottom                : 1.5px solid #ca4a54;
+    --link-border-bottom--hover         : 3px solid var(--theme-color);
+    --link-text-decoration: none;
+    --link-color--hover: var(--theme-color);
+    --link-text-decoration--hover: none;
+    /* Side */
+    --sidebar-padding                             : 0 20px;
+    --sidebar-width                               : 20rem;
+}
+
