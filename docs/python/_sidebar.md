@@ -1,4 +1,5 @@
 - [返回上一层](../_sidebar.md)
+- **Python 入门系列 ◇**
 - [第 0 课 Hello, world!](python/第-0-课-Hello,-world!.md)
 - [第 0 课 附录 学会用 Google 做 research  李笑来](python/第-0-课-附录-学会用-Google-做-research--李笑来.md)
 - [第 1 课 数据类型，用内存的视角看数据](python/第-1-课-数据类型，用内存的视角看数据.md)
