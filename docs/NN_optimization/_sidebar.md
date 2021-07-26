@@ -1,4 +1,5 @@
-- [返回上一层](../_sidebar.md)
+- [*返回上一层*](../_sidebar.md)
+- **神经网络进阶**
 - [10.1.1 偏差、方差和误差](NN_optimization/N1.1偏差、方差和误差.md)
 - [10.1.2 神经网络的正则化](NN_optimization/N1.2神经网络的正则化.md)
 - [10.1.3 数据划分和交叉验证](NN_optimization/N1.3数据划分和交叉验证.md)
