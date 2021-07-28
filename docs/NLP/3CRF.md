@@ -1,6 +1,22 @@
 # 条件随机场
 
-> 翻译自 [Introduction to Conditional Random Fields](https://blog.echen.me/2012/01/03/introduction-to-conditional-random-fields/)
+> [NLP实战-中文命名实体识别](https://mp.weixin.qq.com/s/k9njcx_11ELsmfH1mGO28Q)
+>
+> [如何用简单易懂的例子解释条件随机场（CRF）模型？它和HMM有什么区别？ - 交流_QQ_2240410488 - 博客园](https://www.cnblogs.com/jfdwd/p/11158652.html)
+>
+> [CRF Layer on the Top of BiLSTM - 5 | CreateMoMo](https://createmomo.github.io/2017/11/11/CRF-Layer-on-the-Top-of-BiLSTM-5/)
+>
+> [luopeixiang/named_entity_recognition: 中文命名实体识别（包括多种模型：HMM，CRF，BiLSTM，BiLSTM+CRF的具体实现）](https://github.com/luopeixiang/named_entity_recognition)
+>
+> [手撕算法｜随机场 - 钱小z](http://www.qianxz.pro/2020/11/09/mrf-crf/)
+
+HMM 模型中存在两个假设，一是输出观察值之间严格独立，二是状态转移过程中当前状态只与前一状态有关。也就是说，在命名实体识别的场景下，HMM认为观测到的句子中的每个字都是相互独立的，而且当前时刻的标注只与前一时刻的标注相关。
+
+但实际上，命名实体识别往往需要更多的特征，比如词性，词的上下文等等，同时当前时刻的标注应该与前一时刻以及后一时刻的标注都相关联。由于这两个假设的存在，显然HMM模型在解决命名实体识别的问题上是存在缺陷的。
+
+而条件随机场就没有这种问题，它通过引入自定义的特征函数，不仅可以表达观测之间的依赖，还可表示**当前观测与前后多个状态之间的复杂依赖**，可以有效克服HMM模型面临的问题。
+
+> 下文绝妙部分翻译自 [Introduction to Conditional Random Fields](https://blog.echen.me/2012/01/03/introduction-to-conditional-random-fields/)
 
 想象一下，你有一系列关于你一个月生活的自拍照，你想用它代表的活动标记每个图像（吃，睡觉，驾驶等）。 你打算怎么做？
 
@@ -12,7 +28,7 @@
 
 因此，为了提高我们标签程序的准确性，我们应该包含附近照片的标签，这正是条件随机场所做的。
 
-## 分词标记 Part-of-Speech Tagging
+## 词性标记 Part-of-Speech Tagging
 
 让我们更详细地进入一些常见的词性标记 (POS) 的常见例子。
 
@@ -52,7 +68,7 @@ $$
 
 ## 特征函数的例子
 
-那么这些特征函数是什么样的？ POS标记功能的例子可以包括：
+那么这些特征函数是什么样的？ POS标记特征的例子有：
 $$
 f_1(s, i, l_i, l_{i-1}) = 
 \left\{
@@ -69,7 +85,7 @@ $$
 f_2(s, i, l_i, l_{i-1}) = 
 \left\{
 \begin{array}{**lr**}  
-1, &\text{当 i = 1, $l_i$ = VERB 且这个句子 s 以问号结尾}\\
+1, &\text{当 i = 1, $l_i$ = VERB 且句子 s 以问号结尾}\\
 0, &\text{否则}
 \end{array}
 \right.
@@ -103,13 +119,53 @@ $$
 
 现在让我们退后一步，并将 CRF 与其他一些常用的机器学习技术进行比较。
 
+## 有点像对数几率回归
 
 
+$$
+p(l | s) = \frac{exp[\sum_{j = 1}^m \sum_{i = 1}^n f_j(s, i, l_i, l_{i-1})]}{\sum_{l’} exp[\sum_{j = 1}^m \sum_{i = 1}^n f_j(s, i, l’_i, l’_{i-1})]}
+$$
+这是因为 CRF们 实际上基本上是逻辑回归的序列（sequential）版本：对数几率回归是分类的对数线性模型，而 CRFs 是序列标签的对数线性模型。
 
+对数几率的公式是：
+$$
+p(l|s ) = \frac{exp(w^\top f+b)}{1 + exp(w^\top f+b)}
+$$
+
+
+## 有点像 HMM
+
+回想一下隐马尔可夫模型是词性标注(以及通常的序列标注)的另一种模型。CRF们将任何一堆函数放在一起来获得标签得分，而 hmm 则采用生成方法来进行标签和定义：
+$$
+p(l,s) = p(l_1) \prod_i p(l_i | l_{i-1}) p(w_i | l_i)
+$$
+
+- $p(l_i | l_{i-1})$​​ 是状态转移概率。（例如：介词后面是名词的概率）
+- $p(w_i | l_i)$​ 是观测概率。 (例如：从状态“名词” 观测到 "dad" 的概率)
+
+HMM 与 CRF 相比如何呢？CRF 更强大，它们可以模拟 HMM 所能模拟的一切，甚至更多。可以这样看：
+
+注意 HMM 的对数概率是
+$$
+\log p(l,s) = \log p(l_0) + \sum_i \log p(l_i | l_{i-1}) + \sum_i \log p(w_i | l_i)
+$$
+
+## 基本形式
 
 [Introduction-NLP/6.条件随机场与序列标注.md at master · NLP-LOVE/Introduction-NLP](https://github.com/NLP-LOVE/Introduction-NLP/blob/master/chapter/6.%E6%9D%A1%E4%BB%B6%E9%9A%8F%E6%9C%BA%E5%9C%BA%E4%B8%8E%E5%BA%8F%E5%88%97%E6%A0%87%E6%B3%A8.md)
+
+换个更加正式的数学表达式：
 
 **线性链条件随机场**的定义如下:
 $$
 p(\boldsymbol{y} \mid \boldsymbol{x})=\frac{1}{Z(\boldsymbol{x})} \prod_{t=1}^{T} \exp \left\{\sum_{k=1}^{K} \boldsymbol{w}_{k} f_{k}\left(y_{t-1}, y_{t}, \boldsymbol{x}_{t}\right)\right\}
 $$
+
+
+
+
+> [BiLSTM-CRF模型代码分析及CRF回顾 - Joven Chu Blog](https://jovenchu.cn/2020/06/09/2020-06-09-BiLSTM-CRF/)
+>
+> [手撕 BiLSTM-CRF - 知乎](https://zhuanlan.zhihu.com/p/97676647)
+>
+> [Advanced: Making Dynamic Decisions and the Bi-LSTM CRF — PyTorch Tutorials 1.9.0+cu102 documentation](https://pytorch.org/tutorials/beginner/nlp/advanced_tutorial.html)
