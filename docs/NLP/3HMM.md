@@ -8,7 +8,7 @@
 
 ## 直观理解
 
-<img src="\img\435fb8d2d675dc0be95aedf27feb6b67_1440w.jpg" alt="435fb8d2d675dc0be95aedf27feb6b67_1440w" style="zoom: 67%;" />
+![waads](\img\435fb8d2d675dc0be95aedf27feb6b67_1440w.jpg)
 
 上面三种不同的骰子，假设我手里有三个不同的骰子。第一个骰子是我们平常见的骰子（称这个骰子为D6），6个面，每个面（1，2，3，4，5，6）出现的概率是1/6。第二个骰子是个四面体（称这个骰子为D4），每个面（1，2，3，4）出现的概率是1/4。第三个骰子有八个面（称这个骰子为D8），每个面（1，2，3，4，5，6，7，8）出现的概率是1/8。
 
@@ -29,9 +29,7 @@
 
 
 
-<img src="img\53193f484ae89279da5a717a9d756089_1440w.jpg" alt="53193f484ae89279da5a717a9d756089_1440w" style="zoom:50%;" />
-
-
+![](img\53193f484ae89279da5a717a9d756089_1440w.jpg)
 
 
 
@@ -271,5 +269,24 @@ class HMM:
 
 
 
+## HMM 优缺点
 
+[Strengths and weaknesses of hidden Markov models](https://compbio.soe.ucsc.edu/html_format_papers/tr-94-24/node11.html)
 
+### 优点
+
+- 调优的HMM通常比简单的马尔可夫模型提供更好的压缩，允许显著地发现更多序列。
+- The models are fairly readable (at least when drawn rather than just listed). A high-quality model for REPs (compressing previously unseen REPs to about 1.25 bits/base) may have around 200 states and 300 edges, rather than the  counts of the order-8 simple Markov model. The low ratio of edges to states means that large parts of the model are simple straight-line sequences, which are easy to draw and to understand. 边缘与状态的低比率意味着模型的大部分是简单的直线序列，易于绘制和理解。
+- The HMMs can be used for generating alignments, with each state of the machine corresponding to one column in the alignment. The best path found by the Viterbi algorithm identifies a state for each position, and that in turn can specify the column. HMMs are a bit more powerful than alignments, since the same state can be used repeatedly in a path, but each column can only be used once in an alignment. This results in ambiguous alignments if a column alignment model is used, but can be quite convenient for describing phenomena like random numbers of repeats of a short subsequence. 非常方便地描述像短时间的重复的随机数量的现象。
+
+### 缺点
+
+- The Viterbi algorithm is expensive, both in terms of memory and compute time. For a sequence of length *n*, the dynamic programming for finding the best path through a model with *s* states and *e* edges takes memory proportional to *sn* and time proportional to *en*. For the REP searches, doing a search with a hidden Markov model is about 10 times slower than using a simple Markov model--for larger HMMs (needed for longer target sequences) the penalty would grow. 维特比算法计算速度慢。用于隐马尔可夫模型的其他算法，如forward-backward算法，甚至更昂贵。
+
+- HMM只依赖于每一个状态和它对应的观察对象：序列标注问题不仅和单个词相关，而且和观察序列的长度，单词的上下文，等等相关。
+
+- 目标函数和预测目标函数不匹配：HMM学到的是状态和观察序列的联合分布P(Y,X)，而预测问题中，我们需要的是条件概率P(Y|X)。
+- 无法处理未知的标注。
+- It  would  be  great  to  have  ways  to  add  arbitrary  features  tohelp with this, perhaps based on capitalization or morphology (words starting withcapital letters are likely to be proper nouns, words ending with-edtend to be pasttense (VBD or VBN), etc.) Or knowing the previous or following words might be auseful feature (if the previous word isthe, the current tag is unlikely to be a verb). Although we could try to hack the HMM to find ways to incorporate some ofthese, in general it’s hard for generative models like HMMs to add arbitrary featuresdirectly into the model in a clean way.  很难添加特征。
+
+于是我们就有了
