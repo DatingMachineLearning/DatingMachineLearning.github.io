@@ -241,10 +241,27 @@ $$
 - $Z(X)$ 是一个不变量
 - $exp(\cdot)$ 不影响单调性
 
+我们可以通过像其他判别算法一样的，利用优化算法，比如 lbfgs 或者 随机梯度下降 等来得出 $w_k$。然后可以用上式去预测最佳序列 $\hat Y$ 。
+
+与 HMM 一样，我们将转向 Viterbi 算法，该算法之所以有效，是因为与 HMM 一样，线性链 CRF 在每个时间步仅依赖于一个先前的输出标记 $y_{i-1}$。 Viterbi 算法形式是：
+$$
+v_{t}(j)=\max _{i=1}^{N} v_{t-1}(i) a_{i j} b_{j}\left(o_{t}\right) ; \quad 1 \leq j \leq N, 1<t \leq T
+$$
+HMM 求解形式是：
+$$
+v_{t}(j)=\max _{i=1}^{N} v_{t-1}(i) P\left(s_{j} \mid s_{i}\right) P\left(o_{t} \mid s_{j}\right) \quad 1 \leq j \leq N, 1<t \leq T
+$$
+而 CRF 是：
+$$
+v_{t}(j)=\max _{i=1}^{N} v_{t-1}(i) \sum^{K}_{k=1} w_{k} f_{k}\left(y_{t-1}, y_{t}, X, t\right) \quad 1 \leq j \leq N, 1<t \leq T
+$$
 
 
-- [lihang-code/11.CRF.ipynb at master · fengdu78/lihang-code](https://github.com/fengdu78/lihang-code/blob/master/%E7%AC%AC11%E7%AB%A0%20%E6%9D%A1%E4%BB%B6%E9%9A%8F%E6%9C%BA%E5%9C%BA/11.CRF.ipynb)
-- [Conditional Random Fields - Stanford University (By Daphne Koller) - YouTube](https://www.youtube.com/watch?v=rc3YDj5GiVM&ab_channel=MachineLearningTV)
-
-
+> [lihang-code/11.CRF.ipynb at master · fengdu78/lihang-code](https://github.com/fengdu78/lihang-code/blob/master/%E7%AC%AC11%E7%AB%A0%20%E6%9D%A1%E4%BB%B6%E9%9A%8F%E6%9C%BA%E5%9C%BA/11.CRF.ipynb)
+>
+> [Conditional Random Fields - Stanford University (By Daphne Koller) - YouTube](https://www.youtube.com/watch?v=rc3YDj5GiVM&ab_channel=MachineLearningTV)
+>
+> [算法设计与分析——最大团问题（回溯法） - 王陸 - 博客园](https://www.cnblogs.com/wkfvawl/p/11923848.html)
+>
+> [16_CRF](http://www.huaxiaozhuan.com/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0/chapters/16_CRF.html)
 

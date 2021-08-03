@@ -100,66 +100,37 @@ HMM 模型的训练过程对应隐马尔可夫模型的学习问题（李航 统
 举个例子帮助理解，在估计初始状态分布的时候，假如某个标记在数据集中作为句子第一个字的标记的次数为 k，句子的总数为 N，那么该标记作为句子第一个字的概率可以近似估计为`k/N`，很简单对吧，使用这种方法，我们近似估计HMM的三个要素，代码如下
 
 ```python
-class HMM(object):
-    def __init__(self, N, M):
-        """
-        Args:
-            N: 状态数，这里对应存在的标注的种类
-            M: 观测数，这里对应有多少不同的字
-        """
-        self.N = N
-        self.M = M
+import torch
 
-        # 状态转移概率矩阵 A[i][j]表示从i状态转移到j状态的概率
-        self.A = torch.zeros(N, N)
-        # 观测概率矩阵, B[i][j]表示i状态下生成j观测的概率
-        self.B = torch.zeros(N, M)
-        # 初始状态概率  Pi[i]表示初始时刻为状态i的概率
-        self.Pi = torch.zeros(N)
-        
-    def train(self, word_lists, tag_lists, word2id, tag2id):
-        """
-        HMM的训练，即根据训练语料对模型参数进行估计,
-           因为我们有观测序列以及其对应的状态序列，所以我们
-           可以使用极大似然估计的方法来估计隐马尔可夫模型的参数
-        参数:
-            word_lists: 列表，其中每个元素由字组成的列表，如 ['担','任','科','员']
-            tag_lists: 列表，其中每个元素是由对应的标注组成的列表，如 ['O','O','B-TITLE', 'E-TITLE']
-            word2id: 将字映射为ID
-            tag2id: 字典，将标注映射为ID
-        """
 
-        assert len(tag_lists) == len(word_lists)
+class HiddenMarkovChain:
 
-        # 估计转移概率矩阵
+    def __init__(self, word2id, tag2id):
+        #   状态转移矩阵：[word_num, word_num]
+        self.word2id = word2id
+        self.tag2id = tag2id
+        tag_num, word_num = len(tag2id), len(word2id)
+        self.A = torch.zeros(tag_num, tag_num)
+        #   观测概率矩阵：[tag_num, word_num]
+        self.B = torch.zeros(tag_num, word_num)
+        #   初始状态概率矩阵
+        self.Pi = torch.zeros(tag_num)
+        self.tag_num, self.word_num = tag_num, word_num
+
+    def fit(self, word_lists, tag_lists):
+        assert len(word_lists) == len(tag_lists)
+
+        def MLE_estimate(mat, dim=1):
+            mat[mat == 0.] = 1e-8
+            return mat / mat.sum(dim=dim, keepdim=True)
+
         for tag_list in tag_lists:
-            seq_len = len(tag_list)
-            for i in range(seq_len - 1):
-                current_tagid = tag2id[tag_list[i]]
-                next_tagid = tag2id[tag_list[i+1]]
-                self.A[current_tagid][next_tagid] += 1
-        # 问题：如果某元素没有出现过，该位置为0，这在后续的计算中是不允许的
-        # 解决方法：我们将等于0的概率加上很小的数
-        self.A[self.A == 0.] = 1e-10
-        self.A = self.A / self.A.sum(dim=1, keepdim=True)
+            for i in range(len(tag_list) - 1):
+                now_id = self.tag2id[tag_list[i]]
+                next_id = self.tag2id[tag_list[i + 1]]
+                self.A[now_id, next_id] += 1
 
-        # 估计观测概率矩阵
-        for tag_list, word_list in zip(tag_lists, word_lists):
-            assert len(tag_list) == len(word_list)
-            for tag, word in zip(tag_list, word_list):
-                tag_id = tag2id[tag]
-                word_id = word2id[word]
-                self.B[tag_id][word_id] += 1
-        self.B[self.B == 0.] = 1e-10
-        self.B = self.B / self.B.sum(dim=1, keepdim=True)
-
-        # 估计初始状态概率
-        for tag_list in tag_lists:
-            init_tagid = tag2id[tag_list[0]]
-            self.Pi[init_tagid] += 1
-        self.Pi[self.Pi == 0.] = 1e-10
-        self.Pi = self.Pi / self.Pi.sum()
-        
+        self.A = MLE_estimate(self.A)
 ```
 
 ## 推导
@@ -194,6 +165,8 @@ $$
 
 上面提到的 $B$ 就是观测概率，$A$ 就是状态转移概率。
 
+我们最终要求的是，**在某个观测序列下，每一个观测在某个未知状态的观测概率，乘以之前状态与当前状态的转移概率，其连乘取得最大值时，这些状态为何。**
+
 ## 维特比算法 (viterbi)
 
 > [掌握动态规划，助你成为优秀的算法工程师 | 机器之心](https://www.jiqizhixin.com/articles/2019-09-29-5)
@@ -216,87 +189,58 @@ $$
 
 这个时候我们发现，等式右边的第一项，可以直接取我们刚刚保存的中间结果。对于 $d(S, x_{3k})$​​​，我们依然是计算4次，取最小值保存下来。同样，需要遍历第 $3$​​​ 列的 $4$​​​ 个节点，所以又是 $4×4$​​​次计算。也就是说，每往前走1列，我们就计算了$4×4$​ 次。以此类推，到最右边的节点E的时候，我们需要计算$N×4^2$​次，相比于穷举法的 $4^N$​​​ 条路径，这个效率已经是非常大的进步，把指数级的复杂度降低到了多项式级别！
 
+
+
+
+
 ```python
-class HMM:
-    #...
-    
-    def decoding(self, word_list, word2id, tag2id):
-        """
-        使用维特比算法对给定观测序列求状态序列， 这里就是对字组成的序列,求其对应的标注。
-        维特比算法实际是用动态规划解隐马尔可夫模型预测问题，即用动态规划求概率最大路径（最优路径）
-        这时一条路径对应着一个状态序列
-        """
-        # 问题:整条链很长的情况下，十分多的小概率相乘，最后可能造成下溢
-        # 解决办法：采用对数概率，这样源空间中的很小概率，就被映射到对数空间的大的负数
-        #  同时相乘操作也变成简单的相加操作
-        A = torch.log(self.A)
-        B = torch.log(self.B)
-        Pi = torch.log(self.Pi)
+class HiddenMarkovChain:
+    #	...
+    def predict(self, input_word_list):
+        #   viterbi decoding
+        #   避免概率很小
+        #   转置 观测概率矩阵：[word_num, tag_num]
+        A, B_t, Pi = torch.log(self.A), torch.log(self.B).t(), torch.log(self.Pi)
+        viterbi = torch.zeros(self.tag_num, len(input_word_list))
+        back_pointer = torch.zeros_like(viterbi).long()
 
-        # 初始化 维比特矩阵viterbi 它的维度为[状态数, 序列长度]
-        # 其中viterbi[i, j]表示标注序列的第j个标注为i的所有单个序列(i_1, i_2, ..i_j)出现的概率最大值
-        seq_len = len(word_list)
-        viterbi = torch.zeros(self.N, seq_len)
-        # backpointer是跟viterbi一样大小的矩阵
-        # backpointer[i, j]存储的是 标注序列的第j个标注为i时，第j-1个标注的id
-        # 等解码的时候，我们用backpointer进行回溯，以求出最优路径
-        backpointer = torch.zeros(self.N, seq_len).long()
+        start_word_id = self.word2id.get(input_word_list[0], None)
+        b_t = B_t[start_word_id] if start_word_id else torch.log(torch.full([self.tag_num], 1 / self.tag_num))
+        #   观测概率log + 初始概率log
+        viterbi[:, 0] = b_t + Pi
+        back_pointer[:, 0] = -1
 
-        # self.Pi[i] 表示第一个字的标记为i的概率
-        # Bt[word_id]表示字为word_id的时候，对应各个标记的概率
-        # self.A.t()[tag_id]表示各个状态转移到tag_id对应的概率
+        #   viterbi = (前一个字的标注 s' 的概率 x s' 到 s 的转移概率 x s的观测为该字的概率) 遍历 s' 取最大值
+        #   back-pointer = viterbi遍历到最大时的参数
 
-        # 所以第一步为
-        start_wordid = word2id.get(word_list[0], None)
-        Bt = B.t()
-        if start_wordid is None:
-            # 如果字不再字典里，则假设状态的概率分布是均匀的
-            bt = torch.log(torch.ones(self.N) / self.N)
-        else:
-            bt = Bt[start_wordid]
-        viterbi[:, 0] = Pi + bt
-        backpointer[:, 0] = -1
+        for i in range(1, viterbi.shape[1]):
+            word_id = self.word2id.get(input_word_list[i], None)
+            #   该字对应的标注概率（观测概率）
+            b_t = B_t[word_id] if word_id else torch.log(torch.full([self.tag_num], 1 / self.tag_num))
 
-        # 递推公式：
-        # viterbi[tag_id, step] = max(viterbi[:, step-1]* self.A.t()[tag_id] * Bt[word])
-        # 其中word是step时刻对应的字
-        # 由上述递推公式求后续各步
-        for step in range(1, seq_len):
-            wordid = word2id.get(word_list[step], None)
-            # 处理字不在字典中的情况
-            # bt是在t时刻字为wordid时，状态的概率分布
-            if wordid is None:
-                # 如果字不再字典里，则假设状态的概率分布是均匀的
-                bt = torch.log(torch.ones(self.N) / self.N)
-            else:
-                bt = Bt[wordid]  # 否则从观测概率矩阵中取bt
-            for tag_id in range(len(tag2id)):
+            for tag_id in range(len(self.tag2id)):
                 max_prob, max_id = torch.max(
-                    viterbi[:, step-1] + A[:, tag_id],
-                    dim=0
+                    viterbi[:, i - 1] + A[:, tag_id], dim=0
                 )
-                viterbi[tag_id, step] = max_prob + bt[tag_id]
-                backpointer[tag_id, step] = max_id
+                viterbi[tag_id, i] = max_prob + b_t[tag_id]
+                back_pointer[tag_id, i] = max_id
 
-        # 终止， t=seq_len 即 viterbi[:, seq_len]中的最大概率，就是最优路径的概率
-        best_path_prob, best_path_pointer = torch.max(
-            viterbi[:, seq_len-1], dim=0
-        )
+        best_path_prob, best_path_pointer = torch.max(viterbi[:, viterbi.shape[1] - 1], dim=0)
 
         # 回溯，求最优路径
         best_path_pointer = best_path_pointer.item()
         best_path = [best_path_pointer]
-        for back_step in range(seq_len-1, 0, -1):
-            best_path_pointer = backpointer[best_path_pointer, back_step]
+        for back_step in range(viterbi.shape[1] - 1, 0, -1):
+            best_path_pointer = back_pointer[best_path_pointer, back_step]
             best_path_pointer = best_path_pointer.item()
             best_path.append(best_path_pointer)
 
         # 将tag_id组成的序列转化为tag
-        assert len(best_path) == len(word_list)
-        id2tag = dict((id_, tag) for tag, id_ in tag2id.items())
+        assert len(best_path) == len(input_word_list)
+        id2tag = dict((id_, tag) for tag, id_ in self.tag2id.items())
         tag_list = [id2tag[id_] for id_ in reversed(best_path)]
-
         return tag_list
+
 ```
 
 
@@ -321,4 +265,4 @@ class HMM:
 - 无法处理未知的标注。
 - It  would  be  great  to  have  ways  to  add  arbitrary  features  tohelp with this, perhaps based on capitalization or morphology (words starting withcapital letters are likely to be proper nouns, words ending with-edtend to be pasttense (VBD or VBN), etc.) Or knowing the previous or following words might be auseful feature (if the previous word isthe, the current tag is unlikely to be a verb). Although we could try to hack the HMM to find ways to incorporate some ofthese, in general it’s hard for generative models like HMMs to add arbitrary featuresdirectly into the model in a clean way.  很难添加特征。
 
-于是我们就有了
+于是我们就有了 CRF。
