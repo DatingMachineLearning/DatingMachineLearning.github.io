@@ -1,3 +1,9 @@
+资源：
+
+[吴恩达《深度学习》作业线上版 - 知乎](https://zhuanlan.zhihu.com/p/95510114)
+
+
+
 ## 周计划
 
 7月22日 - 7月23日两天 入门：
@@ -32,6 +38,10 @@
 - 了解 contextual word representation
 - 了解 ELMO，GPT 与 BERT 模型
 - 利用上述模型实现对应功能，跑例子。
+
+
+
+
 
 ## 其他
 
