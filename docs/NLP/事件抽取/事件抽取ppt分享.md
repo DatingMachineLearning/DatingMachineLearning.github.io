@@ -1,6 +1,6 @@
 
 
-An Effective System for Multi-format Information Extraction
+## An Effective System for Multi-format Information Extraction
 
 句子级事件抽取算法
 
@@ -16,7 +16,7 @@ An Effective System for Multi-format Information Extraction
 
 Encoder， Decoder， Output
 
-![dee-model](img/dee-model.png)
+![dee-model](../img/dee-model.png)
 
 
 
