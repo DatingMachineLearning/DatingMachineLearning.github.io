@@ -28,5 +28,4 @@
 - **NLP 任务之事件抽取○** 
   - [An Effective System for Multi-format](NLP/事件抽取/AnEffectiveSystemforMulti-format.md)
   - [基于事件本体和孪生网络的中文事件抽取](NLP/事件抽取/基于事件本体和孪生网络的中文事件抽取.md)
-  - [事件抽取ACE2005数据集论文](NLP/事件抽取/事件抽取ACE2005数据集论文.md)
 
