@@ -1,3 +1,5 @@
+# Attention  的一些 insight
+
 考虑将：
 
 > If you don't walk out, you will think that this is the whole world.

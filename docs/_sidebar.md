@@ -11,8 +11,8 @@
 - [7. ID3, C4.5 和 CART 算法](ML7.ID3,C4.5-and-CART.md)
 - [8. 感知机](ML8.Perceptron.md)
 - [9. 神经网络](ML9.NeuralNetwork.md)
-- [10. 神经网络进阶 ◇](NN_optimization/_sidebar.md)
-- **自然语言处理 ◇** 
+- [10. 神经网络进阶○](NN_optimization/_sidebar.md)
+- **自然语言处理○** 
   - [0. 自然语言处理初步](NLP/0.自然语言处理初步.md)
   - [0.1. 信息抽取问题](NLP/0.1信息抽取问题.md)
   - [0.2. 命名实体识别](NLP/0.2命名实体识别.md)
@@ -22,6 +22,11 @@
   - [2.1 循环神经网络](NLP/2.1循环神经网络.md)
   - [2.2 词嵌入](NLP/2.2词嵌入.md)
   - [3.1 注意力机制](NLP/3.1注意力机制.md)
+  - [3.2 Attention  的一些 insight](NLP/Attention的一些insight.md)
   - [4.1 HMM](NLP/4.1HMM.md)
   - [4.2 CRF](NLP/4.2CRF.md)
+- **NLP 任务之事件抽取○** 
+  - [An Effective System for Multi-format](NLP/事件抽取/AnEffectiveSystemforMulti-format.md)
+  - [基于事件本体和孪生网络的中文事件抽取](NLP/事件抽取/基于事件本体和孪生网络的中文事件抽取.md)
+  - [事件抽取ACE2005数据集论文](NLP/事件抽取/事件抽取ACE2005数据集论文.md)
 
