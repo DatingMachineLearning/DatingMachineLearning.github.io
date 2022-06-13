@@ -2,7 +2,7 @@
 
 ![visitor badge](https://visitor-badge.glitch.me/badge?page_id=xrandx.Dating-with-Machine-Learning)
 
-<img src="../img/20210324194756.png" alt="mnist-3.0.1" style="zoom: 25%;" />
+<img src="img/20210324194756.png" alt="mnist-3.0.1" style="zoom: 25%;" />
 
 > MNIST 数据集 (Mixed National Institute of Standards and Technology database) 是美国国家标准与技术研究院收集整理的大型手写数字数据库,包含60,000个示例的训练集以及10,000个示例的测试集。
 

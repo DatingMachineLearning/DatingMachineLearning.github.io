@@ -37,7 +37,7 @@ $\mathbf{I - H} $ 把 $\mathbf{y}$ 变成 $\mathbf{y - \hat{y}}$ 。
 
 
 
-<img src="../img/20210310195136.png" alt="下载" style="zoom:50%;" />
+<img src="img/20210310195136.png" alt="下载" style="zoom:50%;" />
 
 如果待拟合数据任意两个属性都线性无关的话，$\mathbf{X}$ 就可以看成一个由它的所有列向量所张成的空间。
 
@@ -189,7 +189,7 @@ $$
 $$
 y = \frac{1}{1+e^z}
 $$
-<img src="../img/20210315174317.png" alt="C886BFB9-0C77-4894-B1CF-37409315BB57" style="zoom: 33%;" />
+<img src="img/20210315174317.png" alt="C886BFB9-0C77-4894-B1CF-37409315BB57" style="zoom: 33%;" />
 
 一个事件发生的几率(odds)是指该事件发生的概率与该事件不发生的概率的比值。如果事件发生的概率是 $p$，那么该事件的几率为$\frac{p}{1-p}$  ，该事件的对数几率是：
 
@@ -262,7 +262,7 @@ y=g^{-1}\left(\boldsymbol{w}^{\mathrm{T}} \boldsymbol{x}+b\right)
 $$
 之前的对数几率回归就是代入了 $g(c) = \ln \frac{c}{1-c}$
 
-<img src="../img/20210315194354.png" alt="机器学习基础（一）- 对数几率回归（Logistic Regression）笔记| 零一人生" style="zoom:50%;" />
+<img src="img/20210315194354.png" alt="机器学习基础（一）- 对数几率回归（Logistic Regression）笔记| 零一人生" style="zoom:50%;" />
 
 
 

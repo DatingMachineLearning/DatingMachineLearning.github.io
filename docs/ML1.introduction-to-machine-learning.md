@@ -29,7 +29,7 @@ Improving some performance measure with experience computed from data.
 
 ### 假设空间——机器学习的过程
 
-<img src="../img/20210303185856.png" alt="new-pic-mine-e1572009324171" style="zoom:67%;" />
+<img src="img/20210303185856.png" alt="new-pic-mine-e1572009324171" style="zoom:67%;" />
 
 ### 机器学习分类
 
@@ -66,7 +66,7 @@ PAC
 - 解释模型结果
 - 得出结论
 
-<img src="../img/20210303185958.png" alt="13bb24f42e5bb98f4a9c15037e523d7d" style="zoom: 33%;" />
+<img src="img/20210303185958.png" alt="13bb24f42e5bb98f4a9c15037e523d7d" style="zoom: 33%;" />
 
 ## 作业
 

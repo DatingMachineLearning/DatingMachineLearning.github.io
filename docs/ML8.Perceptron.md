@@ -14,11 +14,11 @@
 
 二维情况下数据可被一条线分离：
 
-<img src="../img/20210422164637.png" alt="linearly-separable" style="zoom:50%;" />
+<img src="img/20210422164637.png" alt="linearly-separable" style="zoom:50%;" />
 
 三维情况下数据被一张平面分离：
 
-![No0tXOKWTx39iV2CJLjCGaFGr1520492096_kc](../img/20210422163634.png)
+![No0tXOKWTx39iV2CJLjCGaFGr1520492096_kc](img/20210422163634.png)
 
 怎么去判断一类是正类还是负类？
 
@@ -30,7 +30,7 @@
 
 根据高中知识，所有的在其上方的正类数据都会大于 0， 负类数据小于 0。
 
-<img src="../img/20210422164637.png" alt="linearly-separable" style="zoom:67%;" />
+<img src="img/20210422164637.png" alt="linearly-separable" style="zoom:67%;" />
 
 这时我们可以利用数学中的符号函数：
 $$
@@ -45,7 +45,7 @@ $$
 $$
 图像是
 
-![Signum_function.svg](../img/20210422195725.png)
+![Signum_function.svg](img/20210422195725.png)
 
 利用它我们就可以让直线或者超平面区分出不同类别，令偏置项 b 等于 w0：
 $$
@@ -69,11 +69,11 @@ $$
 
 一是 $y_i = +1$，则 $\mathrm{sgn}(\mathbf{w^\top x_i}) = -1$， 说明  $\mathbf{w^\top x_i} < 0$ ，则 $\mathbf w$ 与 $\mathbf{x_i}$ 呈钝角。$\mathbf w$ 与当前的超平面垂直，如果我们让它与 $\mathbf{x_i}$ 夹角变为锐角，就能把 $\mathbf{x_i}$ 分类正确。如图
 
-![image-20210423165028429](../img/20210423165028.png)
+![image-20210423165028429](img/20210423165028.png)
 
 二是 $y_i = -1$，则 $\mathrm{sgn}(\mathbf{w^\top x_i}) = +1$， 说明  $\mathbf{w^\top x_i} > 0$ ，则 $\mathbf w$ 与 $\mathbf{x_i}$ 呈锐角。同样，$\mathbf w$ 与当前的超平面垂直，如果我们让它与 $\mathbf{x_i}$ 夹角变为钝角，就能把 $\mathbf{x_i}$ 分类正确。如图
 
-![image-20210423165039476](../img/20210423165039.png)
+![image-20210423165039476](img/20210423165039.png)
 
 
 注意，若 $\theta$ 为 $\mathbf w$ 和 $\mathbf {x_i}$夹角则：
@@ -90,7 +90,7 @@ $$
 
 ### 线性可分
 
-<img src="../img/20210423180603.png" alt="hl_classif_separation" style="zoom:101%;" />
+<img src="img/20210423180603.png" alt="hl_classif_separation" style="zoom:101%;" />
 
 对于二维（两个特征）的数据集，如果存一条直线，能够把这两个分类完美区分，那么这个数据集就是线性可分的。
 
